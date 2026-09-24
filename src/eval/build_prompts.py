@@ -49,6 +49,9 @@ SYSTEM_PROMPT = Path("bench/system_prompt.txt")
 
 N_FORMULAS = 3
 MIN_WORDS, MAX_WORDS = 300, 800          # độ dài đoạn thuyết minh, spec P0-1 mục 6.2
+# Trần ký tự: bảng số tách ra rất nhiều token (~0,52 token/ký tự), 800 "từ" số liệu có thể
+# thành >3.000 token và vượt context 4096 của Sailor2-1B. 3.500 ký tự ~ 1.850 token.
+MAX_CHARS = 3500
 LAGS = {1, 2, 4, 8}
 FUNCS = {"lag": 2, "delta": 2, "growth": 2, "mean": 2, "std": 2,
          "rank": 1, "zscore": 1, "log": 1, "abs": 1, "safe_div": 2}
@@ -449,16 +452,21 @@ def units_of(lines: list[str], start: int, end: int, skip: set[str]) -> list[tup
     return out
 
 
-def take_words(units: list[tuple[int, str]], budget: int) -> tuple[list[tuple[int, str]], bool]:
-    kept, used = [], 0
+def take_words(units: list[tuple[int, str]], budget: int,
+               char_budget: int = MAX_CHARS) -> tuple[list[tuple[int, str]], bool]:
+    kept, used, chars = [], 0, 0
     for i, text in units:
-        n = len(text.split())
-        if used + n > budget:
-            if budget - used >= 30:                      # còn đủ chỗ thì cắt dở câu cuối
-                kept.append((i, " ".join(text.split()[: budget - used]) + " [...]"))
+        words = text.split()
+        if used + len(words) > budget or chars + len(text) > char_budget:
+            room = budget - used
+            while room > 0 and chars + len(" ".join(words[:room])) > char_budget:
+                room -= 1
+            if room >= 30:                               # còn đủ chỗ thì cắt dở câu cuối
+                kept.append((i, " ".join(words[:room]) + " [...]"))
             return kept, True
         kept.append((i, text))
-        used += n
+        used += len(words)
+        chars += len(text) + 1
     return kept, False
 
 
@@ -499,7 +507,9 @@ def extract_context(path: Path, theme: str) -> dict | None:
     parts = [main]
     used = sum(len(t.split()) for _, t in main)
     if used < MIN_WORDS:
-        extra, _ = take_words(policy_note(lines, heads, match, note["head"]["line"]), MAX_WORDS - used)
+        used_chars = sum(len(t) + 1 for _, t in main)
+        extra, _ = take_words(policy_note(lines, heads, match, note["head"]["line"]),
+                              MAX_WORDS - used, MAX_CHARS - used_chars)
         if extra:
             parts.append(extra)
 
@@ -685,7 +695,7 @@ def build(catalog: dict[str, dict], docs: dict) -> list[dict]:
                 "response_schema": response_schema(allowed) if fam == "F4" else None,
                 "notes": (f'mục {ctx["note_no"]}. {ctx["note_title"]}'
                           + ("; ghép thêm mục chính sách kế toán" if ctx["with_policy"] else "")
-                          + ("; cắt bớt ở 800 từ" if ctx["truncated"] else "")),
+                          + ("; cắt bớt theo trần 800 từ / 3.500 ký tự" if ctx["truncated"] else "")),
             }
             records.append(rec)
     return records

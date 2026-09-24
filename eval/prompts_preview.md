@@ -4,7 +4,7 @@ Sinh tự động bởi `src/eval/build_prompts.py`. **Không sửa tay** - sử
 
 Tổng **76** prompt: F1 = 17, F2 = 25, F3 = 19, F4 = 15. Mỗi prompt yêu cầu 3 công thức. System prompt chung: `bench/system_prompt.txt`.
 
-Đoạn thuyết minh (F2/F3): 185-801 từ, trung vị 440.
+Đoạn thuyết minh (F2/F3): 185-719 từ, trung vị 440.
 
 ## Bảng cặp
 
@@ -15,13 +15,13 @@ Tổng **76** prompt: F1 = 17, F2 = 25, F3 = 19, F4 = 15. Mỗi prompt yêu cầ
 | P03-PNJ24-inventory | PNJ | 2024 | inventory | mục 9. HÀNG TÔN KHO; ghép thêm mục chính sách kế toán | 438 | F1-003 | F2-003 |  | F4-002 |
 | P04-GAS24-receivables | GAS | 2024 | receivables | mục 5. PHÀI THU NGẢN HẠN CỦA KHÁCH HÀNG | 407 | F1-004 | F2-004 | F3-003 | F4-003 |
 | P05-HUT24-receivables | HUT | 2024 | receivables | mục 7. Nợ xấu | 272 |  | F2-005 | F3-004 |  |
-| P06-TNG24-debt | TNG | 2024 | debt | mục 22. VAY DÀI HẠN; cắt bớt ở 800 từ | 801 | F1-005 | F2-006 |  | F4-004 |
+| P06-TNG24-debt | TNG | 2024 | debt | mục 22. VAY DÀI HẠN; cắt bớt theo trần 800 từ / 3.500 ký tự | 695 | F1-005 | F2-006 |  | F4-004 |
 | P07-NLG17-debt | NLG | 2017 | debt | mục 22. VAY VÀ NỘ | 525 | F1-006 | F2-007 | F3-005 | F4-005 |
-| P08-POW17-debt | POW | 2017 | debt | mục 21. VAY VÀ NỘ THUÊ TÀI CHÍNH DÀI HẠN; cắt bớt ở 800 từ | 798 |  | F2-008 | F3-006 |  |
+| P08-POW17-debt | POW | 2017 | debt | mục 21. VAY VÀ NỘ THUÊ TÀI CHÍNH DÀI HẠN; cắt bớt theo trần 800 từ / 3.500 ký tự | 626 |  | F2-008 | F3-006 |  |
 | P09-HAH24-fixed_assets | HAH | 2024 | fixed_assets | mục 12. Tài sản cố định hữu hình; ghép thêm mục chính sách kế toán | 636 | F1-007 | F2-009 | F3-007 | F4-006 |
 | P10-TNG17-fixed_assets | TNG | 2017 | fixed_assets | mục 10. TĂNG, GIÀM TÀI SẢN CỔ ĐỊNH HỮU HÌNH | 415 |  | F2-010 | F3-008 |  |
 | P11-HPG17-cip | HPG | 2017 | cip | mục 15. Chi phí xây dựng cơ bản dở dang; ghép thêm mục chính sách kế toán | 348 |  | F2-011 |  | F4-007 |
-| P12-VGC24-cip | VGC | 2024 | cip | mục 16. CHI PHÍ XÂY DỰNG CƠ BẢN DỞ DANG; cắt bớt ở 800 từ | 801 | F1-008 | F2-012 | F3-009 | F4-008 |
+| P12-VGC24-cip | VGC | 2024 | cip | mục 16. CHI PHÍ XÂY DỰNG CƠ BẢN DỞ DANG; cắt bớt theo trần 800 từ / 3.500 ký tự | 710 | F1-008 | F2-012 | F3-009 | F4-008 |
 | P13-NLG24-customer_advances | NLG | 2024 | customer_advances | mục 26. DOANH THU CHU'A THỰC HIỆN | 185 |  | F2-013 | F3-010 |  |
 | P14-IDC24-customer_advances | IDC | 2024 | customer_advances | mục 26. DOANH THU CHU'A THỰC HIỆN | 231 | F1-009 | F2-014 | F3-011 | F4-009 |
 | P15-CTD17-associates | CTD | 2017 | associates | mục 15. ĐẦU TƯ VÀO CÁC CÔNG TY LIÊN KẾT | 454 | F1-010 | F2-015 | F3-012 | F4-010 |
@@ -30,11 +30,11 @@ Tổng **76** prompt: F1 = 17, F2 = 25, F3 = 19, F4 = 15. Mỗi prompt yêu cầ
 | P18-MWG24-related_party | MWG | 2024 | related_party | mục 33. NGHIỆP VỤ VỚI CÁC BÊN LIÊN QUAN; ghép thêm mục chính sách kế toán | 377 |  | F2-018 |  | F4-011 |
 | P19-GAS17-commitments | GAS | 2017 | commitments | mục 39. CÁC KHOÀN CAM KẾT | 478 | F1-013 | F2-019 | F3-015 | F4-012 |
 | P20-VNM24-segment | VNM | 2024 | segment | mục 2. Báo cáo bộ phận; ghép thêm mục chính sách kế toán | 351 | F1-014 | F2-020 | F3-016 |  |
-| P21-PC124-segment | PC1 | 2024 | segment | mục 5. Báo cáo bộ phận; cắt bớt ở 800 từ | 797 |  | F2-021 |  | F4-013 |
+| P21-PC124-segment | PC1 | 2024 | segment | mục 5. Báo cáo bộ phận; cắt bớt theo trần 800 từ / 3.500 ký tự | 560 |  | F2-021 |  | F4-013 |
 | P22-PNJ17-tax | PNJ | 2017 | tax | mục 33. CHI PHÍ THUÊ THU NHẬP DOANH NGHIỆP HIỆN HÀNH | 223 |  | F2-022 | F3-017 |  |
 | P23-VCB24-bank_loans | VCB | 2024 | bank_loans | mục 9. Cho vay khách hàng | 345 | F1-015 | F2-023 | F3-018 | F4-014 |
-| P24-SHB17-bank_loans | SHB | 2017 | bank_loans | mục 11. CHO VAY KHÁCH HÀNG; cắt bớt ở 800 từ | 801 | F1-016 | F2-024 | F3-019 |  |
-| P25-BVS24-fin_assets | BVS | 2024 | fin_assets | mục 7. CÁC LOẠI TÀI SẢN TÀI CHÍNH; cắt bớt ở 800 từ | 796 | F1-017 | F2-025 |  | F4-015 |
+| P24-SHB17-bank_loans | SHB | 2017 | bank_loans | mục 11. CHO VAY KHÁCH HÀNG; cắt bớt theo trần 800 từ / 3.500 ký tự | 719 | F1-016 | F2-024 | F3-019 |  |
+| P25-BVS24-fin_assets | BVS | 2024 | fin_assets | mục 7. CÁC LOẠI TÀI SẢN TÀI CHÍNH; cắt bớt theo trần 800 từ / 3.500 ký tự | 616 | F1-017 | F2-025 |  | F4-015 |
 
 ## Toàn văn
 
@@ -861,7 +861,7 @@ Trả về mảng JSON gồm đúng 3 phần tử theo định dạng đã quy �
 
 allowed_vars (16): `cash_and_equivalents, total_assets, total_liabilities, current_liabilities, short_term_debt, long_term_debt, equity, revenue, financial_expense, interest_expense, operating_profit, pretax_profit, net_income, depreciation, cfo, market_cap`  
 must_reference: `interest_expense`  
-context_source: `data/sample/raw/ocr_results/TNG/2024/TNG_Baocaotaichinh_2024_Kiemtoan/TNG_Baocaotaichinh_2024_Kiemtoan_extracted.txt#L1292-L1327`
+context_source: `data/sample/raw/ocr_results/TNG/2024/TNG_Baocaotaichinh_2024_Kiemtoan/TNG_Baocaotaichinh_2024_Kiemtoan_extracted.txt#L1292-L1318`
 
 ````text
 Doanh nghiệp: TNG - sản xuất công nghiệp (dệt may vốn hoá nhỏ), sàn HNX.
@@ -892,8 +892,6 @@ STT | Bên cho vay | Hợp đồng | Hạn mức | Mục đích | Kỳ hạn g�
 (i) | Ngân hàng Thương mại Cổ phần Công thương Việt Nam - Chi nhánh Thái Nguyên | 07/2022-HĐCVDADT/NHCT220-TNG | 14.500.000.000 VND | Thanh toán các chi phí đầu tư hợp pháp cho dự án đầu tư máy móc, thiết bị toàn Công ty năm 2022 | Thời hạn vay 5 năm kể từ ngày tiếp theo ngày Ngân hàng giải ngân khoản vay đầu tiên cho Công ty. Đối với các khoản vay bằng VND, lãi suất cho vay bằng lãi suất cơ sở cộng (+) biên độ 3,5% một năm. | 12%/năm | Toàn bộ tài sản hình thành từ vốn vay của Dự án (Thuyết minh số 11).
 (i) | Ngân hàng Thương mại Cổ phần Công thương Việt Nam - Chi nhánh Thái Nguyên | 08/2022-HĐCVDADT/NHCT220-TNG | 30.820.000.000 VND | Thanh toán các chi phí đầu tư hợp pháp cho dự án đầu tư máy móc, thiết bị toàn Công ty năm 2022 (lần 2) | Thời hạn vay 5 năm kể từ ngày tiếp theo ngày Ngân hàng giải ngân khoản vay đầu tiên cho Công ty. Đối với các khoản vay bằng VND, lãi suất cho vay bằng lãi suất cơ sở cộng (+) biên độ 3,5% một năm. | 12,5%/năm | Toàn bộ tài sản hình thành từ vốn vay của Dự án (Thuyết minh số 11).
 (i) | Ngân hàng Thương mại Cổ phần Công thương Việt Nam - Chi nhánh Thái Nguyên | 11/2022-HĐCVDADT/NHCT220-TNG | 12.113.000.000 VND | Thanh toán các chi phí đầu tư hợp pháp cho dự án đầu tư máy móc, thiết bị toàn Công ty năm 2022 (lần 3) | Thời hạn vay 5 năm kể từ ngày tiếp theo ngày Ngân hàng giải ngân khoản vay đầu tiên cho Công ty. Đối với các khoản vay bằng VND, lãi suất cho vay bằng lãi suất cơ sở cộng (+) biên độ 3,5% một năm. | 12,5%/năm | Toàn bộ tài sản hình thành từ vốn vay của Dự án (Thuyết minh số 11).
-STT | Bên cho vay | Hợp đồng | Hạn mức | Mục đích | Kỳ hạn gốc và lãi | Lãi suất trong năm | Tài sản đảm bảo
-(i) | Ngân hàng Thương mại Cổ phần Công thương Việt Nam - Chi nhánh Thái Nguyên | 01/2023-HĐCVDADT/NHCT220-TNG | 336.293.000.000 VND | Thanh toán chi phí đầu tư hợp pháp của Dự án: Dự án nhà máy may TNG Sơn Cẩm 1 tại cụm Công nghiệp Sơn Cẩm 1, thành phố Thái Nguyên. | Thời hạn vay 7 năm kể từ ngày tiếp theo ngày Ngân hàng giải ngân khoản vay đầu tiên cho [...]
 >>>
 
 Danh sách biến được phép dùng:
@@ -1207,7 +1205,7 @@ Ví dụ một phần tử hợp lệ (không được lặp lại):
 
 allowed_vars (16): `cash_and_equivalents, total_assets, total_liabilities, current_liabilities, short_term_debt, long_term_debt, equity, revenue, financial_expense, interest_expense, operating_profit, pretax_profit, net_income, depreciation, cfo, market_cap`  
 must_reference: `interest_expense`  
-context_source: `data/sample/raw/ocr_results/POW/2017/POW_Baocaotaichinh_2017_Kiemtoan_Hopnhat/POW_Baocaotaichinh_2017_Kiemtoan_Hopnhat_extracted.txt#L1041-L1076`
+context_source: `data/sample/raw/ocr_results/POW/2017/POW_Baocaotaichinh_2017_Kiemtoan_Hopnhat/POW_Baocaotaichinh_2017_Kiemtoan_Hopnhat_extracted.txt#L1041-L1064`
 
 ````text
 Doanh nghiệp: POW - tiện ích - năng lượng (nhiệt điện), sàn HOSE.
@@ -1249,27 +1247,6 @@ Số cuối năm | Số đầu năm
 VND | VND
 Vay bằng Đô la Mỹ | 17.641.067.608.552 | 22.461.256.175.696
 Vay bằng Euro | 1.920.633.080.526 | 2.169.174.006.516
-Vay bằng Việt Nam Đồng | 5.175.941.527.383 | 5.791.250.881.894
- | 24.737.642.216.461 | 30.421.681.064.106
-Các khoản vay dài hạn được phân loại theo loại hình đảm bảo như sau:
-Số đầu năm
-VND
-Tín chấp | 3.242.439.401.072
-Bảo lãnh của bên thứ ba | 24.630.430.182.212
-Bảo đảm bằng tài sản | 2.548.811.480.822
- | 30.421.681.064.106
-Các khoản vay của Tổng Công ty được ký hợp đồng theo lãi suất thả nổi và lãi suất cô định. Các khoản vay được phân loại theo lãi suất vay như sau:
-VND | VND
-Vay theo lãi suất cố định | 3.565.103.746.483 | 4.191.097.085.978
-Vay theo lãi suất thả nổi | 21.172.538.469.978 | 26.230.583.978.128
- | 24.737.642.216.461 | 30.421.681.064.106
-Các khoản vay dài hạn được hoàn trả theo lịch biểu sau:
- | Số cuối nămVND | Số đầu nămVND
-Trong vòng một năm | 5.959.085.181.465 | 5.752.830.032.679
-Trong nằm thứ hai | 5.680.800.092.672 | 5.945.191.833.608
-Từ nằm thứ ba đến nằm thứ năm | 10.054.972.605.991 | 14.243.668.217.520
-Sau nằm năm | 3.042.784.336.333 | 4.479.990.980.299
- | 24.737.642.216.461 | 30.421.681.064.106
 >>>
 
 Danh sách biến được phép dùng:
@@ -1299,7 +1276,7 @@ Trả về mảng JSON gồm đúng 3 phần tử theo định dạng đã quy �
 
 allowed_vars (16): `cash_and_equivalents, total_assets, total_liabilities, current_liabilities, short_term_debt, long_term_debt, equity, revenue, financial_expense, interest_expense, operating_profit, pretax_profit, net_income, depreciation, cfo, market_cap`  
 must_reference: `interest_expense`  
-context_source: `data/sample/raw/ocr_results/POW/2017/POW_Baocaotaichinh_2017_Kiemtoan_Hopnhat/POW_Baocaotaichinh_2017_Kiemtoan_Hopnhat_extracted.txt#L1041-L1076`
+context_source: `data/sample/raw/ocr_results/POW/2017/POW_Baocaotaichinh_2017_Kiemtoan_Hopnhat/POW_Baocaotaichinh_2017_Kiemtoan_Hopnhat_extracted.txt#L1041-L1064`
 
 ````text
 Doanh nghiệp: POW - tiện ích - năng lượng (nhiệt điện), sàn HOSE.
@@ -1341,27 +1318,6 @@ Số cuối năm | Số đầu năm
 VND | VND
 Vay bằng Đô la Mỹ | 17.641.067.608.552 | 22.461.256.175.696
 Vay bằng Euro | 1.920.633.080.526 | 2.169.174.006.516
-Vay bằng Việt Nam Đồng | 5.175.941.527.383 | 5.791.250.881.894
- | 24.737.642.216.461 | 30.421.681.064.106
-Các khoản vay dài hạn được phân loại theo loại hình đảm bảo như sau:
-Số đầu năm
-VND
-Tín chấp | 3.242.439.401.072
-Bảo lãnh của bên thứ ba | 24.630.430.182.212
-Bảo đảm bằng tài sản | 2.548.811.480.822
- | 30.421.681.064.106
-Các khoản vay của Tổng Công ty được ký hợp đồng theo lãi suất thả nổi và lãi suất cô định. Các khoản vay được phân loại theo lãi suất vay như sau:
-VND | VND
-Vay theo lãi suất cố định | 3.565.103.746.483 | 4.191.097.085.978
-Vay theo lãi suất thả nổi | 21.172.538.469.978 | 26.230.583.978.128
- | 24.737.642.216.461 | 30.421.681.064.106
-Các khoản vay dài hạn được hoàn trả theo lịch biểu sau:
- | Số cuối nămVND | Số đầu nămVND
-Trong vòng một năm | 5.959.085.181.465 | 5.752.830.032.679
-Trong nằm thứ hai | 5.680.800.092.672 | 5.945.191.833.608
-Từ nằm thứ ba đến nằm thứ năm | 10.054.972.605.991 | 14.243.668.217.520
-Sau nằm năm | 3.042.784.336.333 | 4.479.990.980.299
- | 24.737.642.216.461 | 30.421.681.064.106
 >>>
 
 Danh sách biến được phép dùng:
@@ -1891,7 +1847,7 @@ Trả về mảng JSON gồm đúng 3 phần tử theo định dạng đã quy �
 
 allowed_vars (13): `long_term_assets, fixed_assets, tangible_fixed_assets, construction_in_progress, total_assets, long_term_debt, equity, revenue, net_income, depreciation, cfo, capex, market_cap`  
 must_reference: `construction_in_progress`  
-context_source: `data/sample/raw/ocr_results/VGC/2024/VGC_Baocaotaichinh_2024_Kiemtoan_Hopnhat/VGC_Baocaotaichinh_2024_Kiemtoan_Hopnhat_extracted.txt#L1241-L1251`
+context_source: `data/sample/raw/ocr_results/VGC/2024/VGC_Baocaotaichinh_2024_Kiemtoan_Hopnhat/VGC_Baocaotaichinh_2024_Kiemtoan_Hopnhat_extracted.txt#L1241-L1249`
 
 ````text
 Doanh nghiệp: VGC - sản xuất công nghiệp (vật liệu xây dựng + khu công nghiệp), sàn HOSE.
@@ -1917,8 +1873,7 @@ Các công trình khác | 533.416.580.979 | 469.462.797.835
  | 6.093.932.875.606 | 6.229.377.004.740
 (i) Dự án đầu tư phát triển kết cấu hạ tầng Khu Công nghiệp Thuận Thành I được thực hiện theo Quyết định số 187/TCT-HĐQT ngày 31 tháng 5 năm 2021 và phê duyệt điều chỉnh theo Quyết định số 86/TCT-HĐQT ngày 08 tháng 5 năm 2023, Quyết định 151/TCT-HĐQT ngày 12 tháng 12 năm 2023 của Hội đồng Quản trị Tổng Công ty. Dự án có diện tích 262,71 ha nằm trên địa phận các Xã Ninh Xá, Trạm Lộ, Nghĩa Đạo, Huyện Thuận Thành, Tính Bắc Ních với tổng mức đầu tư là 3.395,8 tỷ VND bằng vốn tự có, vốn huy động và vốn vay thương mại. Dự án thực hiện đầu tư các hạng mục chủ yếu là: Sản nền; Đường nội bộ; Hệ thống cấp nước, thoát nước mưa; Hệ thống thoát nước thải; Hệ thống cấp điện trung thể; Hệ thống chiều sáng và trạm biến áp và nhà điều hành; Cây xanh, cảnh quan; Hệ thống kênh mương,... Tiến độ dự án được chia thành 3 giai đoạn: Giai đoạn chuẩn bị đầu tư (2020-2021); Giai đoạn thực hiện đầu tư (từ quý III/2021 đến năm 2025); và Giai đoạn kết thúc đầu tư (năm 2026). Tính đến thời điểm lập báo cáo, dự án đang trong giai đoạn thực hiện sản lắp mặt bằng, xây dựng hạ tầng xung quanh và bàn giao.
 Tài sản gòm máy móc, trang thiết bị nội thất, phương tiện vận tải, quyền tài sản và lợi ích hợp pháp liên quan tới các hợp đồng mua bán/cho thuê/thi công liên quan đến công tác đến bù, giải phóng mặt bằng hình thành từ dự án Thuận Thành I đang được thế chấp cho khoản vay tại Ngân hàng TMCP Công Thương Việt Nam theo Hợp đồng cho vay số 01/2022-HDCVDADT/NHCT285-TTI ngày 30 tháng 12 năm 2022 và Văn bản sửa đổi, bổ sung hợp đồng cho vay đầu tư dự án ngày 28 tháng 12 năm 2023 (chi tiết tại Thuyết minh số 24).
-(ii) Dự án đầu tư xây dựng và kinh doanh kết cấu hạ tầng Khu công nghiệp Phú Hà giai đoạn I được thực hiện theo Quyết định số 29/TCT-HĐQT ngày 23 tháng 01 năm 2015, Quyết định số 73/TCT-HĐQT ngày 08 tháng 11 năm 2019, Quyết định số 165/TCT-HĐQT ngày 30 tháng 8 năm 2022, Quyết định số 152/TCT-HĐQT ngày 22 tháng 12 năm 2023 và Quyết định số 176/TCT-HĐQT ngày 30 tháng 9 năm 2024 về việc phê duyệt điều chỉnh dự án và kế hoạch lựa chọn nhà thầu của Hội đồng Quản trị Tổng Công ty. Dự án có diện tích 356,29 ha nằm trên địa phận các xã Hà Thạch, Hà Lộc, Phú Hồ, thị xã Phú Thọ, tỉnh Phú Thọ với tổng mức đầu tư là 2.188,1 tỷ VND bằng vốn tư có, vốn huy động và vốn vay thương mại. Dự án thực hiện đầu tư các hạng mục chú yếu là: San nền; Đường nội bộ; Hệ thống cấp nước, thoát nước mưa, hệ thống thoát nước thải; Hệ thống cung cấp điện, chiếu sáng đường giao thông; Xây dựng trung tâm điều hành Khu Công nghiệp; Xây dựng công, tưởng rào, nhà thường trực, cây xanh,... Tính đến thời điểm lập báo cáo, dự án đang trong giai đoạn hoàn thiện cơ sở hạ tầng và bàn giao.
-Tài sản và lợi ích hợp pháp liên quan tới Dư án đầu tư xây dựng và kinh doanh kết cấu hạ tầng Khu công nghiệp Phú Hà giai đoạn 1, bao gồm tài sản gắn liền với đất hình thành trong tương lai trên diện tích đất tại xã Hà Thạch, [...]
+(ii) Dự án đầu tư xây dựng và kinh doanh kết cấu hạ tầng Khu công nghiệp Phú Hà giai đoạn I được thực hiện theo Quyết định số 29/TCT-HĐQT ngày 23 tháng 01 năm 2015, Quyết định số 73/TCT-HĐQT ngày 08 tháng 11 năm 2019, Quyết định số 165/TCT-HĐQT ngày 30 tháng 8 năm 2022, Quyết định số 152/TCT-HĐQT ngày 22 tháng 12 năm 2023 và Quyết định số 176/TCT-HĐQT ngày 30 tháng 9 năm 2024 về việc phê duyệt điều chỉnh dự án và kế hoạch lựa chọn nhà thầu của Hội đồng Quản trị Tổng Công ty. Dự án có diện tích 356,29 ha nằm trên địa phận các xã Hà Thạch, Hà Lộc, Phú Hồ, thị xã Phú Thọ, tỉnh Phú Thọ với tổng mức đầu tư là 2.188,1 tỷ VND bằng vốn tư có, vốn huy động và vốn vay thương mại. Dự án thực hiện đầu tư các hạng mục chú yếu là: San nền; Đường nội bộ; Hệ thống cấp nước, thoát nước mưa, hệ thống thoát nước thải; Hệ thống cung cấp điện, chiếu sáng đường giao thông; Xây dựng [...]
 >>>
 
 Danh sách biến được phép dùng:
@@ -1945,7 +1900,7 @@ Trả về mảng JSON gồm đúng 3 phần tử theo định dạng đã quy �
 
 allowed_vars (13): `long_term_assets, fixed_assets, tangible_fixed_assets, construction_in_progress, total_assets, long_term_debt, equity, revenue, net_income, depreciation, cfo, capex, market_cap`  
 must_reference: `construction_in_progress`  
-context_source: `data/sample/raw/ocr_results/VGC/2024/VGC_Baocaotaichinh_2024_Kiemtoan_Hopnhat/VGC_Baocaotaichinh_2024_Kiemtoan_Hopnhat_extracted.txt#L1241-L1251`
+context_source: `data/sample/raw/ocr_results/VGC/2024/VGC_Baocaotaichinh_2024_Kiemtoan_Hopnhat/VGC_Baocaotaichinh_2024_Kiemtoan_Hopnhat_extracted.txt#L1241-L1249`
 
 ````text
 Doanh nghiệp: VGC - sản xuất công nghiệp (vật liệu xây dựng + khu công nghiệp), sàn HOSE.
@@ -1971,8 +1926,7 @@ Các công trình khác | 533.416.580.979 | 469.462.797.835
  | 6.093.932.875.606 | 6.229.377.004.740
 (i) Dự án đầu tư phát triển kết cấu hạ tầng Khu Công nghiệp Thuận Thành I được thực hiện theo Quyết định số 187/TCT-HĐQT ngày 31 tháng 5 năm 2021 và phê duyệt điều chỉnh theo Quyết định số 86/TCT-HĐQT ngày 08 tháng 5 năm 2023, Quyết định 151/TCT-HĐQT ngày 12 tháng 12 năm 2023 của Hội đồng Quản trị Tổng Công ty. Dự án có diện tích 262,71 ha nằm trên địa phận các Xã Ninh Xá, Trạm Lộ, Nghĩa Đạo, Huyện Thuận Thành, Tính Bắc Ních với tổng mức đầu tư là 3.395,8 tỷ VND bằng vốn tự có, vốn huy động và vốn vay thương mại. Dự án thực hiện đầu tư các hạng mục chủ yếu là: Sản nền; Đường nội bộ; Hệ thống cấp nước, thoát nước mưa; Hệ thống thoát nước thải; Hệ thống cấp điện trung thể; Hệ thống chiều sáng và trạm biến áp và nhà điều hành; Cây xanh, cảnh quan; Hệ thống kênh mương,... Tiến độ dự án được chia thành 3 giai đoạn: Giai đoạn chuẩn bị đầu tư (2020-2021); Giai đoạn thực hiện đầu tư (từ quý III/2021 đến năm 2025); và Giai đoạn kết thúc đầu tư (năm 2026). Tính đến thời điểm lập báo cáo, dự án đang trong giai đoạn thực hiện sản lắp mặt bằng, xây dựng hạ tầng xung quanh và bàn giao.
 Tài sản gòm máy móc, trang thiết bị nội thất, phương tiện vận tải, quyền tài sản và lợi ích hợp pháp liên quan tới các hợp đồng mua bán/cho thuê/thi công liên quan đến công tác đến bù, giải phóng mặt bằng hình thành từ dự án Thuận Thành I đang được thế chấp cho khoản vay tại Ngân hàng TMCP Công Thương Việt Nam theo Hợp đồng cho vay số 01/2022-HDCVDADT/NHCT285-TTI ngày 30 tháng 12 năm 2022 và Văn bản sửa đổi, bổ sung hợp đồng cho vay đầu tư dự án ngày 28 tháng 12 năm 2023 (chi tiết tại Thuyết minh số 24).
-(ii) Dự án đầu tư xây dựng và kinh doanh kết cấu hạ tầng Khu công nghiệp Phú Hà giai đoạn I được thực hiện theo Quyết định số 29/TCT-HĐQT ngày 23 tháng 01 năm 2015, Quyết định số 73/TCT-HĐQT ngày 08 tháng 11 năm 2019, Quyết định số 165/TCT-HĐQT ngày 30 tháng 8 năm 2022, Quyết định số 152/TCT-HĐQT ngày 22 tháng 12 năm 2023 và Quyết định số 176/TCT-HĐQT ngày 30 tháng 9 năm 2024 về việc phê duyệt điều chỉnh dự án và kế hoạch lựa chọn nhà thầu của Hội đồng Quản trị Tổng Công ty. Dự án có diện tích 356,29 ha nằm trên địa phận các xã Hà Thạch, Hà Lộc, Phú Hồ, thị xã Phú Thọ, tỉnh Phú Thọ với tổng mức đầu tư là 2.188,1 tỷ VND bằng vốn tư có, vốn huy động và vốn vay thương mại. Dự án thực hiện đầu tư các hạng mục chú yếu là: San nền; Đường nội bộ; Hệ thống cấp nước, thoát nước mưa, hệ thống thoát nước thải; Hệ thống cung cấp điện, chiếu sáng đường giao thông; Xây dựng trung tâm điều hành Khu Công nghiệp; Xây dựng công, tưởng rào, nhà thường trực, cây xanh,... Tính đến thời điểm lập báo cáo, dự án đang trong giai đoạn hoàn thiện cơ sở hạ tầng và bàn giao.
-Tài sản và lợi ích hợp pháp liên quan tới Dư án đầu tư xây dựng và kinh doanh kết cấu hạ tầng Khu công nghiệp Phú Hà giai đoạn 1, bao gồm tài sản gắn liền với đất hình thành trong tương lai trên diện tích đất tại xã Hà Thạch, [...]
+(ii) Dự án đầu tư xây dựng và kinh doanh kết cấu hạ tầng Khu công nghiệp Phú Hà giai đoạn I được thực hiện theo Quyết định số 29/TCT-HĐQT ngày 23 tháng 01 năm 2015, Quyết định số 73/TCT-HĐQT ngày 08 tháng 11 năm 2019, Quyết định số 165/TCT-HĐQT ngày 30 tháng 8 năm 2022, Quyết định số 152/TCT-HĐQT ngày 22 tháng 12 năm 2023 và Quyết định số 176/TCT-HĐQT ngày 30 tháng 9 năm 2024 về việc phê duyệt điều chỉnh dự án và kế hoạch lựa chọn nhà thầu của Hội đồng Quản trị Tổng Công ty. Dự án có diện tích 356,29 ha nằm trên địa phận các xã Hà Thạch, Hà Lộc, Phú Hồ, thị xã Phú Thọ, tỉnh Phú Thọ với tổng mức đầu tư là 2.188,1 tỷ VND bằng vốn tư có, vốn huy động và vốn vay thương mại. Dự án thực hiện đầu tư các hạng mục chú yếu là: San nền; Đường nội bộ; Hệ thống cấp nước, thoát nước mưa, hệ thống thoát nước thải; Hệ thống cung cấp điện, chiếu sáng đường giao thông; Xây dựng [...]
 >>>
 
 Danh sách biến được phép dùng:
@@ -3284,7 +3238,7 @@ Trả về mảng JSON gồm đúng 3 phần tử theo định dạng đã quy �
 
 allowed_vars (13): `long_term_assets, total_assets, equity, gross_revenue, revenue, cogs, gross_profit, selling_expense, admin_expense, operating_profit, net_income, segment_disclosed, market_cap`  
 must_reference: `gross_profit`  
-context_source: `data/sample/raw/ocr_results/PC1/2024/PC1_Baocaotaichinh_2024_Kiemtoan_Hopnhat/PC1_Baocaotaichinh_2024_Kiemtoan_Hopnhat_extracted.txt#L998-L1088`
+context_source: `data/sample/raw/ocr_results/PC1/2024/PC1_Baocaotaichinh_2024_Kiemtoan_Hopnhat/PC1_Baocaotaichinh_2024_Kiemtoan_Hopnhat_extracted.txt#L998-L1071`
 
 ````text
 Doanh nghiệp: PC1 - xây dựng - vật liệu (xây lắp điện + thuỷ điện), sàn HOSE.
@@ -3328,17 +3282,6 @@ Kết quả kinh doanh của bộ phận | 233.592.240.028 | 129.838.206.735 | 4
 \( \therefore {AO} = 3,{BN} = 2\left( {{AD} - {AB}}\right) \)
  | Xây lắp và xây dựng VND | Sản xuất công nghiệp VND | Bất động sản VND | Năng lượng VND | Thương mại VND | Khai thác, vận hành Khu Công nghiệp VND | Khai khoáng VND | Các hoạt động khác VND | Hợp nhất VND
 Tải sản của bộ phận Tài sản không phân bổ | 1.902.631.794.913 | 723.731.548.075 | 1.309.608.304.859 | 9.008.063.060.286 | 241.386.683.338 | 1.399.100.103.337 | 2.170.526.667.505 | 27.819.880.071 | 16.782.868.042.3844.204.776.698.744
-Tổng tài sản | 1.902.631.794.913 | 723.731.548.075 | 1.309.608.304.859 | 9.008.063.060.286 | 241.386.683.338 | 1.399.100.103.337 | 2.170.526.667.505 | 27.819.880.071 | 20.987.644.741.128
-Nợ phải trả của bộ phân Nợ phải trả không phân bổ | 1.600.967.413.927 | 511.673.313.711 | 405.093.392.252 | 5.406.095.610.792 | 4.396.392.430 | 36.453.218.308 | 1.439.154.983.426 | 10.079.376.073 | 9.413.913.700.9193.857.711.747.313
-Tổng nợ phải trả | 1.600.967.413.927 | 511.673.313.711 | 405.093.392.252 | 5.406.095.610.792 | 4.396.392.430 | 36.453.218.308 | 1.439.154.983.426 | 10.079.376.073 | 13.271.625.448.232
-12.087.381.208 | 28.751.027.771 | 658.125.908 | 20.168.478.436 | - | 42.264.954.186 | 130.204.202.650 | 361.446.824 | 234.495.616.983
-137.756.617.361 | 13.781.020.069 | 1.140.490.051 | 376.066.914.222 | - | 18.148.266.141 | 212.660.366.549 | - | 759.553.674.393
-219.846.464 | 17.586.936.688 | - | - | - | 356.284.750 | 42.758.707.921 | - | 60.921.775.823
-719.034.972 | - | - | - | - | - | - | - | 719.034.972
-4.276.124.919 | - | 1.306.897.517 | - | - | 13.282.764.912 | - | - | 18.865.787.348
-- | - | 3.561.645.403 | 27.785.389.507 | - | 1.961.471.982 | 1.785.866.937 | - | 35.094.373.829
-//c/ _ RAC . /o
- | Xây lắp và xây dựng VND | Sản xuất công nghiệp VND | Bắt động sản VND | Năng lượng VND | Thương mại VND | Khai thác, vận hành khu công nghiệp VND | Khai khoáng VND Đã điều chỉnh lại | Các hoạt động khác VND | Hợp nhất VND Đã điều chỉnh lại
 >>>
 
 Danh sách biến được phép dùng:
@@ -3854,10 +3797,6 @@ Vận tải kho bãi | 3.158.672 | 1,59 | 3.326.876 | 2,05
 Dịch vụ lưu trú và ăn uống | 1.331.461 | 0,67 | 1.213.657 | 0,75
 Thông tin và truyền thông | 111.063 | 0,06 | 143.909 | 0,09
 Hoạt động tài chính, ngân hàng và bảo hiểm | 2.263.714 | 1,14 | 983.861 | 0,61
-Hoạt động kinh doanh bất động sản | 15.700.331 | 7,92 | 10.597.684 | 6,53
-Hoạt động chuyên môn, khoa học và công nghệ | 599.078 | 0,30 | 591.889 | 0,36
-Hoạt động hành chính và dịch vụ hỗ trợ | 1.127.811 | 0,57 | 1.237.078 | 0,76
-Hoạt động của Đảng Cộng sản, tổ chức chính trị - xã hội, quản lý nhà nước, an ninh quốc phòng; bảo đảm xã hội bắt buộc | 42.649 | 0,02 | [...]
 >>>
 
 Danh sách biến được phép dùng:
@@ -3959,10 +3898,6 @@ Vận tải kho bãi | 3.158.672 | 1,59 | 3.326.876 | 2,05
 Dịch vụ lưu trú và ăn uống | 1.331.461 | 0,67 | 1.213.657 | 0,75
 Thông tin và truyền thông | 111.063 | 0,06 | 143.909 | 0,09
 Hoạt động tài chính, ngân hàng và bảo hiểm | 2.263.714 | 1,14 | 983.861 | 0,61
-Hoạt động kinh doanh bất động sản | 15.700.331 | 7,92 | 10.597.684 | 6,53
-Hoạt động chuyên môn, khoa học và công nghệ | 599.078 | 0,30 | 591.889 | 0,36
-Hoạt động hành chính và dịch vụ hỗ trợ | 1.127.811 | 0,57 | 1.237.078 | 0,76
-Hoạt động của Đảng Cộng sản, tổ chức chính trị - xã hội, quản lý nhà nước, an ninh quốc phòng; bảo đảm xã hội bắt buộc | 42.649 | 0,02 | [...]
 >>>
 
 Danh sách biến được phép dùng:
@@ -4028,7 +3963,7 @@ Trả về mảng JSON gồm đúng 3 phần tử theo định dạng đã quy �
 
 allowed_vars (15): `total_assets, equity, pretax_profit, net_income, cfo, cfi, cff, related_party_disclosed, audit_opinion_qualified, going_concern_flag, contingent_liabilities_disclosed, market_cap, close_price, shares_outstanding, adv20`  
 must_reference: `-`  
-context_source: `data/sample/raw/ocr_results/BVS/2024/BVS_Baocaotaichinh_2024_Kiemtoan/BVS_Baocaotaichinh_2024_Kiemtoan_extracted.txt#L1178-L1266`
+context_source: `data/sample/raw/ocr_results/BVS/2024/BVS_Baocaotaichinh_2024_Kiemtoan/BVS_Baocaotaichinh_2024_Kiemtoan_extracted.txt#L1178-L1247`
 
 ````text
 Doanh nghiệp: BVS - chứng khoán (chứng khoán vốn hoá nhỏ), sàn HNX.
@@ -4072,14 +4007,6 @@ TỔNG CỘNG | 1.163.146.288.486 | 1.707.763.500.474
 7.4 Các khoản cho vay
  | Số cuối năm VND | Số đầu năm VND
 Cho vay margin (*) | 2.949.435.728.483 | 2.708.111.871.986
-Cho vay ứng trước tiền bán chứng khoán | 554.299.772.582 | 501.114.814.837
-TỔNG CỘNG | 3.503.735.501.065 | 3.209.226.686.823
-(*) Chứng khoán của nhà đầu tư tham gia vào giao dịch vay ký quỹ được Công ty giữ như tài sản đảm bảo cho khoản vay này của nhà đầu tư với Công ty. Tại ngày 31 tháng 12 năm 2024 và ngày 31 tháng 12 năm 2023, giá trị thị trường của chứng khoán làm tài sản đảm bảo cho các khoản cho vay giao dịch ký quỹ lần lượt là 10.214.284.611.750 VND và 5.411.890.156.213 VND.
-\( \left\| N_{4}^{2}\right\| \)  与  \( \left\| N_{2}^{2}\right\| \)
-7.5 Tỉnh hình biến động giá trị thị trường của các tài sản tài chính
-Chênh lệch tăng (VND) | Chênh lệch giảm (VND) | Chênh lệch tăng (VND) | Chênh lệch giảm (VND)
-Cổ phiếu niêm yết | 238.099.845.216 | 32.439.014.894 | (12.649.875.340) | 257.888.984.770 | 195.203.695.970 | 35.718.708.817 | (5.708.451.257) | 225.213.953.530
-Cổ phiếu chưa niêm yết | 2.688.655.127 | 6.000.000 | (238.138.916) | 2.456.516.211 | 1.534.743.168 | 12.104.000 | (364.395.453) | 1.182.451.715
 >>>
 
 Danh sách biến được phép dùng:

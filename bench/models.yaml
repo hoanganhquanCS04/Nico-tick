@@ -1,0 +1,82 @@
+# Ứng viên bộ sinh công thức - P0 task 2 (spec P0-2 mục 2).
+#
+# revision = commit hash trên HuggingFace, ghim để tái lập (kiểm tra 24/09/2026 bằng HfApi().model_info).
+# Đây cũng là luận điểm của đề tài: mô hình tự triển khai có mốc cố định, API thì không.
+#
+# Cả 4 mô hình: không gated, license Apache 2.0.
+
+defaults:
+  quant: nf4                    # bitsandbytes NF4 + double quant, đồng nhất cho mọi mô hình
+  compute_dtype: float16        # T4 / GTX 1660 Ti không có bf16 gốc
+  seeds: [0, 1, 2]
+  # Ghi đè generation_config riêng của từng mô hình (Gemma top_k=64, Sailor2 repetition_penalty=1.1)
+  # để mọi mô hình sinh với đúng một cấu hình - khác một tham số là bảng mất giá trị so sánh.
+  generation:
+    do_sample: true
+    temperature: 0.2
+    top_p: 0.9
+    top_k: 0
+    repetition_penalty: 1.0
+    max_new_tokens: 512
+  # Truyền vào apply_chat_template. Qwen3.5 mặc định BẬT thinking -> sinh <think>... ăn hết 512 token.
+  chat_kwargs:
+    enable_thinking: false
+
+models:
+  - key: qwen35-2b
+    slot: 1
+    role: Generalist đa ngôn ngữ thế hệ mới nhất
+    id: Qwen/Qwen3.5-2B
+    params: 2B
+    revision: 15852e8c16360a2fea060d615a32b45270f8a8fc
+    notes: >
+      Kiến trúc lai: 18 lớp linear attention (Gated DeltaNet) + 6 lớp full attention.
+      Checkpoint đa phương thức; AutoModelForCausalLM chỉ nạp phần văn bản.
+      Không có flash-linear-attention thì transformers chạy nhánh torch (chậm hơn) - ghi rõ khi báo tốc độ.
+
+  - key: gemma4-e2b-plecpu
+    slot: 2
+    role: Họ thứ hai, mốc dữ liệu đã biết
+    id: google/gemma-4-E2B-it
+    params: E2B (5,1B tổng)
+    revision: 3e22461f65e89153144f8adb70e3b8c2cc9845a7
+    # Tổng 5,12 tỷ tham số: 2,35 tỷ là bảng per-layer embedding (PLE), 0,40 tỷ embedding thường,
+    # 1,88 tỷ lớp decoder, 0,47 tỷ tháp ảnh + âm thanh. NF4 chỉ nén lớp Linear, embedding giữ fp16
+    # -> để nguyên trên GPU thì riêng PLE đã ~4,7GB. Thiết kế "E2B" của Google là đẩy PLE ra CPU
+    # (chỉ là bảng tra cứu). Đã thử trên bản thu nhỏ: kết quả sinh giống hệt khi PLE ở CPU.
+    cpu_modules:
+      - model.language_model.embed_tokens_per_layer
+      - model.vision_tower
+      - model.embed_vision
+      - model.audio_tower
+      - model.embed_audio
+    skip_quant_modules: [vision_tower, embed_vision, audio_tower, embed_audio]
+    notes: >
+      2,3 tỷ tham số hiệu dụng / 5,1 tỷ tổng. Báo VRAM của cấu hình này là con số chính;
+      dòng gemma4-e2b-gpu bên dưới chỉ để cho thầy thấy cái giá nếu không tách PLE.
+
+  - key: qwen35-0.8b
+    slot: 3
+    role: Cận dưới kích thước (cùng họ, cùng thế hệ slot 1)
+    id: Qwen/Qwen3.5-0.8B
+    params: 0,8B
+    revision: 2fc06364715b967f1860aea9cf38778875588b17
+
+  - key: sailor2-1b
+    slot: 4
+    role: Chuyên biệt tiếng Việt / Đông Nam Á
+    id: sail/Sailor2-1B-Chat
+    params: 1B
+    revision: 51b48ecd7c0629e4c79dc927a0445e6b671d8692
+    max_context: 4096           # prompt dài nhất 3.448 token + 512 sinh = 3.960, vừa
+    notes: Kiến trúc Qwen2, 48 lớp x hidden 896 (sâu và hẹp -> sinh từng token chậm hơn kích thước gợi ý).
+
+  # ---- dòng tham chiếu, KHÔNG chạy đủ bộ thử: chỉ đo VRAM/tốc độ trên vài prompt
+  # (chất lượng giống hệt gemma4-e2b-plecpu vì cùng trọng số, chỉ khác nơi đặt PLE).
+  - key: gemma4-e2b-gpu
+    slot: 2
+    role: Tham chiếu VRAM - Gemma để nguyên trên GPU
+    id: google/gemma-4-E2B-it
+    params: E2B (5,1B tổng)
+    revision: 3e22461f65e89153144f8adb70e3b8c2cc9845a7
+    reference_only: true
