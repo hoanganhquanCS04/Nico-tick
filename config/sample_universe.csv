@@ -1,0 +1,51 @@
+# Pool ứng viên cho mẫu P0 (task 1.1). Không phải universe của P1.
+# cap_tier tham chiếu vốn hoá giai đoạn 2024-2025, mang tính phân tầng tương đối - CẦN ĐỐI CHIẾU
+# lại bằng dữ liệu vốn hoá thật ở P1 trước khi đưa con số nào vào báo cáo.
+# is_financial=true: ngân hàng / chứng khoán / bảo hiểm - mẫu biểu BCTC khác hẳn DN thường.
+ticker,exchange,sector,cap_tier,is_financial,note
+HPG,HOSE,manufacturing,large,false,thép - chu kỳ rõ, hàng tồn kho lớn
+HSG,HOSE,manufacturing,mid,false,tôn mạ - đòn bẩy cao
+TCM,HOSE,manufacturing,small,false,dệt may - doanh thu xuất khẩu
+VGC,HOSE,manufacturing,mid,false,vật liệu xây dựng + khu công nghiệp
+DHC,HOSE,manufacturing,small,false,giấy bao bì
+NTP,HNX,manufacturing,mid,false,nhựa - biên lợi nhuận ổn định
+TNG,HNX,manufacturing,small,false,dệt may vốn hoá nhỏ
+MWG,HOSE,retail_consumer,large,false,bán lẻ - vòng quay hàng tồn kho nhanh
+PNJ,HOSE,retail_consumer,mid,false,bán lẻ trang sức
+VNM,HOSE,retail_consumer,large,false,sữa - dòng tiền ổn định
+SAB,HOSE,retail_consumer,large,false,bia - thuế tiêu thụ đặc biệt
+MSN,HOSE,retail_consumer,large,false,tập đoàn đa ngành - cấu trúc hợp nhất phức tạp
+DGW,HOSE,retail_consumer,mid,false,phân phối công nghệ - vốn lưu động lớn
+VHM,HOSE,real_estate,large,false,BĐS nhà ở - ghi nhận doanh thu theo bàn giao
+NLG,HOSE,real_estate,mid,false,BĐS nhà ở tầm trung
+DXG,HOSE,real_estate,mid,false,BĐS + môi giới
+KDH,HOSE,real_estate,mid,false,BĐS nhà ở TP.HCM
+CEO,HNX,real_estate,small,false,BĐS nghỉ dưỡng - biến động mạnh
+L14,HNX,real_estate,small,false,BĐS vốn hoá nhỏ
+HUT,HNX,real_estate,small,false,hạ tầng + BĐS
+IDC,HNX,real_estate,mid,false,khu công nghiệp - doanh thu cho thuê dài hạn
+CTD,HOSE,construction_materials,mid,false,xây dựng - khoản phải thu rất lớn
+HT1,HOSE,construction_materials,mid,false,xi măng
+VCS,HNX,construction_materials,mid,false,đá thạch anh nhân tạo - xuất khẩu
+PC1,HOSE,construction_materials,mid,false,xây lắp điện + thuỷ điện
+POW,HOSE,utilities_energy,large,false,nhiệt điện
+REE,HOSE,utilities_energy,mid,false,điện nước + cơ điện lạnh - nhiều công ty liên kết
+NT2,HOSE,utilities_energy,mid,false,điện khí - cổ tức đều
+GAS,HOSE,utilities_energy,large,false,khí - giá bán theo dầu
+PVS,HNX,utilities_energy,mid,false,dịch vụ dầu khí
+GMD,HOSE,logistics,mid,false,cảng biển
+HAH,HOSE,logistics,small,false,vận tải container - chu kỳ cước
+PVT,HOSE,logistics,mid,false,vận tải dầu khí
+VCB,HOSE,bank,large,true,ngân hàng quốc doanh
+ACB,HOSE,bank,large,true,ngân hàng tư nhân bán lẻ
+SHB,HOSE,bank,large,true,ngân hàng tư nhân - chuyển sàn HNX sang HOSE 2021
+SSI,HOSE,securities,large,true,chứng khoán đầu ngành
+VND,HOSE,securities,mid,true,chứng khoán - danh mục tự doanh lớn
+SHS,HNX,securities,mid,true,chứng khoán HNX
+BVS,HNX,securities,small,true,chứng khoán vốn hoá nhỏ
+MBS,HNX,securities,mid,true,chứng khoán
+PVI,HNX,insurance,mid,true,bảo hiểm - mẫu biểu khác cả ngân hàng lẫn DN thường
+VHC,HOSE,agri_fishery,mid,false,thuỷ sản xuất khẩu
+ANV,HOSE,agri_fishery,small,false,cá tra
+DBC,HOSE,agri_fishery,mid,false,chăn nuôi - chu kỳ giá heo
+HAG,HOSE,agri_fishery,mid,false,nông nghiệp - nhiều lần tái cấu trúc, BCTC có ý kiến ngoại trừ

@@ -1,0 +1,29 @@
+# Dữ liệu tải về - KHÔNG commit. Tái tạo bằng src/data/*.py
+data/sample/raw/
+data/raw/
+data/processed/
+.cache/
+**/.cache/huggingface/
+
+# Kết quả chạy mô hình
+bench/raw/
+*.gguf
+*.safetensors
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Hệ điều hành / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Giữ lại: metadata nhẹ, tái lập được kết quả chọn mẫu
+!data/meta/repo_files.json
+!data/sample/tickers.csv
+!data/sample/manifest.csv

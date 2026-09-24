@@ -1,0 +1,691 @@
+# Danh mục biến chuẩn hoá - xương sống của cả dự án (spec P0-1 mục 5).
+#
+# File này là giao ước giữa 4 mô-đun:
+#   - prompts.jsonl  : danh sách biến hợp lệ đưa cho mô hình
+#   - validator      : kiểm tra biến mô hình sinh ra có tồn tại không
+#   - P4             : sinh ~150 công thức trên đúng danh mục này
+#   - P5             : tính giá trị biến từ BCTC quý
+#
+# Khoá chính là cặp (statement, vas_code) - mã số chỉ tiêu theo mẫu BCTC Việt Nam.
+# MÃ SỐ VA NHAU GIỮA CÁC BÁO CÁO: mã 20 là "lợi nhuận gộp" ở KQKD nhưng là "lưu chuyển
+# tiền thuần từ HĐKD" ở LCTT; mã 02 là "giảm trừ doanh thu" ở KQKD nhưng là "khấu hao"
+# ở LCTT. Vì vậy luôn phải xác định báo cáo trước, không tra mã số trần.
+#
+# aliases chỉ là phương án dự phòng cho dòng OCR mất mã số.
+# coverage do src/data/build_variables.py điền, KHÔNG sửa tay.
+
+meta:
+  version: 0
+  created: 2026-09-23
+  sample: data/sample/tickers.csv   # 20 mã x 2 năm
+  note: >
+    applies_to=[non_financial] nghĩa là biến chỉ có ở doanh nghiệp thường.
+    Ngân hàng và công ty chứng khoán dùng mẫu biểu riêng (VCB chỉ 28-31 mã số,
+    SHB 38-49, so với trung vị 74 của nhóm phi tài chính) nên nhiều biến sẽ trống -
+    đó là kết quả đúng, không phải lỗi parser.
+
+variables:
+
+  # ---------------------------------------------------------------- bảng cân đối kế toán
+  - name: current_assets
+    vi_label: TÀI SẢN NGẮN HẠN
+    statement: balance_sheet
+    vas_code: "100"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["TÀI SẢN NGẮN HẠN"]
+
+  - name: cash_and_equivalents
+    vi_label: Tiền và các khoản tương đương tiền
+    statement: balance_sheet
+    vas_code: "110"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Tiền và các khoản tương đương tiền"]
+
+  - name: short_term_investments
+    vi_label: Đầu tư tài chính ngắn hạn
+    statement: balance_sheet
+    vas_code: "120"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Đầu tư tài chính ngắn hạn"]
+
+  - name: short_term_receivables
+    vi_label: Các khoản phải thu ngắn hạn
+    statement: balance_sheet
+    vas_code: "130"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Các khoản phải thu ngắn hạn"]
+
+  - name: receivables_customers
+    vi_label: Phải thu ngắn hạn của khách hàng
+    statement: balance_sheet
+    vas_code: "131"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Phải thu ngắn hạn của khách hàng", "Phải thu của khách hàng"]
+
+  - name: prepaid_to_suppliers
+    vi_label: Trả trước cho người bán ngắn hạn
+    statement: balance_sheet
+    vas_code: "132"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Trả trước cho người bán ngắn hạn"]
+
+  - name: provision_doubtful_debt
+    vi_label: Dự phòng phải thu ngắn hạn khó đòi
+    statement: balance_sheet
+    vas_code: "137"
+    unit: VND
+    sign: negative
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Dự phòng phải thu ngắn hạn khó đòi", "Dự phòng các khoản phải thu ngắn hạn khó đòi"]
+
+  - name: inventory
+    vi_label: Hàng tồn kho (thuần)
+    statement: balance_sheet
+    vas_code: "140"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Hàng tồn kho"]
+
+  - name: inventory_gross
+    vi_label: Hàng tồn kho (gốc, trước dự phòng)
+    statement: balance_sheet
+    vas_code: "141"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Hàng tồn kho"]
+
+  - name: inventory_writedown
+    vi_label: Dự phòng giảm giá hàng tồn kho
+    statement: balance_sheet
+    vas_code: "149"
+    unit: VND
+    sign: negative
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Dự phòng giảm giá hàng tồn kho"]
+
+  - name: long_term_assets
+    vi_label: TÀI SẢN DÀI HẠN
+    statement: balance_sheet
+    vas_code: "200"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["TÀI SẢN DÀI HẠN"]
+
+  - name: fixed_assets
+    vi_label: Tài sản cố định
+    statement: balance_sheet
+    vas_code: "220"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Tài sản cố định"]
+
+  - name: tangible_fixed_assets
+    vi_label: Tài sản cố định hữu hình
+    statement: balance_sheet
+    vas_code: "221"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Tài sản cố định hữu hình"]
+
+  - name: accumulated_depreciation
+    vi_label: Giá trị hao mòn luỹ kế
+    statement: balance_sheet
+    vas_code: "223"
+    unit: VND
+    sign: negative
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Giá trị hao mòn luỹ kế", "Giá trị hao mòn lũy kế"]
+
+  - name: construction_in_progress
+    vi_label: Tài sản dở dang dài hạn
+    statement: balance_sheet
+    vas_code: "240"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Tài sản dở dang dài hạn", "Chi phí xây dựng cơ bản dở dang"]
+
+  - name: long_term_investments
+    vi_label: Đầu tư tài chính dài hạn
+    statement: balance_sheet
+    vas_code: "250"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Đầu tư tài chính dài hạn"]
+
+  - name: investments_associates
+    vi_label: Đầu tư vào công ty liên doanh, liên kết
+    statement: balance_sheet
+    vas_code: "252"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Đầu tư vào công ty liên doanh, liên kết"]
+
+  - name: total_assets
+    vi_label: TỔNG CỘNG TÀI SẢN
+    statement: balance_sheet
+    vas_code: "270"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial, financial]
+    aliases: ["TỔNG CỘNG TÀI SẢN", "TỔNG TÀI SẢN"]
+
+  - name: total_liabilities
+    vi_label: NỢ PHẢI TRẢ
+    statement: balance_sheet
+    vas_code: "300"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["NỢ PHẢI TRẢ"]
+
+  - name: current_liabilities
+    vi_label: Nợ ngắn hạn
+    statement: balance_sheet
+    vas_code: "310"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Nợ ngắn hạn"]
+
+  - name: payables_suppliers
+    vi_label: Phải trả người bán ngắn hạn
+    statement: balance_sheet
+    vas_code: "311"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Phải trả người bán ngắn hạn"]
+
+  - name: customer_advances
+    vi_label: Người mua trả tiền trước ngắn hạn
+    statement: balance_sheet
+    vas_code: "312"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Người mua trả tiền trước ngắn hạn"]
+
+  - name: short_term_debt
+    vi_label: Vay và nợ thuê tài chính ngắn hạn
+    statement: balance_sheet
+    vas_code: "320"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Vay và nợ thuê tài chính ngắn hạn"]
+
+  - name: long_term_liabilities
+    vi_label: Nợ dài hạn
+    statement: balance_sheet
+    vas_code: "330"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Nợ dài hạn"]
+
+  - name: long_term_debt
+    vi_label: Vay và nợ thuê tài chính dài hạn
+    statement: balance_sheet
+    vas_code: "338"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Vay và nợ thuê tài chính dài hạn"]
+
+  - name: equity
+    vi_label: VỐN CHỦ SỞ HỮU
+    statement: balance_sheet
+    vas_code: "400"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial, financial]
+    aliases: ["VỐN CHỦ SỞ HỮU"]
+
+  - name: share_capital
+    vi_label: Vốn góp của chủ sở hữu
+    statement: balance_sheet
+    vas_code: "411"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Vốn góp của chủ sở hữu", "Vốn cổ phần"]
+
+  - name: retained_earnings
+    vi_label: Lợi nhuận sau thuế chưa phân phối
+    statement: balance_sheet
+    vas_code: "421"
+    unit: VND
+    sign: any
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Lợi nhuận sau thuế chưa phân phối"]
+
+  - name: minority_interest
+    vi_label: Lợi ích cổ đông không kiểm soát
+    statement: balance_sheet
+    vas_code: "429"
+    unit: VND
+    sign: any
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Lợi ích cổ đông không kiểm soát"]
+
+  - name: total_resources
+    vi_label: TỔNG CỘNG NGUỒN VỐN
+    statement: balance_sheet
+    vas_code: "440"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["TỔNG CỘNG NGUỒN VỐN"]
+
+  # ---------------------------------------------------------------- kết quả kinh doanh
+  - name: gross_revenue
+    vi_label: Doanh thu bán hàng và cung cấp dịch vụ
+    statement: income_statement
+    vas_code: "01"
+    unit: VND
+    sign: positive
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Doanh thu bán hàng và cung cấp dịch vụ"]
+
+  - name: revenue_deductions
+    vi_label: Các khoản giảm trừ doanh thu
+    statement: income_statement
+    vas_code: "02"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Các khoản giảm trừ doanh thu"]
+
+  - name: revenue
+    vi_label: Doanh thu thuần
+    statement: income_statement
+    vas_code: "10"
+    unit: VND
+    sign: positive
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Doanh thu thuần về bán hàng và cung cấp dịch vụ", "Doanh thu thuần"]
+
+  - name: cogs
+    vi_label: Giá vốn hàng bán
+    statement: income_statement
+    vas_code: "11"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Giá vốn hàng bán"]
+
+  - name: gross_profit
+    vi_label: Lợi nhuận gộp
+    statement: income_statement
+    vas_code: "20"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Lợi nhuận gộp về bán hàng và cung cấp dịch vụ", "Lợi nhuận gộp"]
+
+  - name: financial_income
+    vi_label: Doanh thu hoạt động tài chính
+    statement: income_statement
+    vas_code: "21"
+    unit: VND
+    sign: positive
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Doanh thu hoạt động tài chính"]
+
+  - name: financial_expense
+    vi_label: Chi phí tài chính
+    statement: income_statement
+    vas_code: "22"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Chi phí tài chính"]
+
+  - name: interest_expense
+    vi_label: Chi phí lãi vay
+    statement: income_statement
+    vas_code: "23"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Trong đó: Chi phí lãi vay", "Chi phí lãi vay"]
+
+  - name: share_of_associates
+    vi_label: Phần lãi lỗ trong công ty liên doanh, liên kết
+    statement: income_statement
+    vas_code: "24"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Phần lãi lỗ trong công ty liên doanh, liên kết"]
+
+  - name: selling_expense
+    vi_label: Chi phí bán hàng
+    statement: income_statement
+    vas_code: "25"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Chi phí bán hàng"]
+
+  - name: admin_expense
+    vi_label: Chi phí quản lý doanh nghiệp
+    statement: income_statement
+    vas_code: "26"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Chi phí quản lý doanh nghiệp"]
+
+  - name: operating_profit
+    vi_label: Lợi nhuận thuần từ hoạt động kinh doanh
+    statement: income_statement
+    vas_code: "30"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Lợi nhuận thuần từ hoạt động kinh doanh"]
+
+  - name: other_income
+    vi_label: Thu nhập khác
+    statement: income_statement
+    vas_code: "31"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Thu nhập khác"]
+
+  - name: pretax_profit
+    vi_label: Tổng lợi nhuận kế toán trước thuế
+    statement: income_statement
+    vas_code: "50"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial, financial]
+    aliases: ["Tổng lợi nhuận kế toán trước thuế"]
+
+  - name: current_tax_expense
+    vi_label: Chi phí thuế TNDN hiện hành
+    statement: income_statement
+    vas_code: "51"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Chi phí thuế thu nhập doanh nghiệp hiện hành"]
+
+  - name: net_income
+    vi_label: Lợi nhuận sau thuế thu nhập doanh nghiệp
+    statement: income_statement
+    vas_code: "60"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial, financial]
+    aliases: ["Lợi nhuận sau thuế thu nhập doanh nghiệp"]
+
+  - name: net_income_parent
+    vi_label: Lợi nhuận sau thuế của cổ đông công ty mẹ
+    statement: income_statement
+    vas_code: "61"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Lợi nhuận sau thuế của cổ đông của công ty mẹ"]
+
+  - name: eps_basic
+    vi_label: Lãi cơ bản trên cổ phiếu
+    statement: income_statement
+    vas_code: "70"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Lãi cơ bản trên cổ phiếu"]
+
+  # ---------------------------------------------------------------- lưu chuyển tiền tệ
+  - name: depreciation
+    vi_label: Khấu hao tài sản cố định
+    statement: cash_flow
+    vas_code: "02"
+    unit: VND
+    sign: positive
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Khấu hao tài sản cố định", "Khấu hao và phân bổ"]
+
+  - name: cfo
+    vi_label: Lưu chuyển tiền thuần từ hoạt động kinh doanh
+    statement: cash_flow
+    vas_code: "20"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial, financial]
+    aliases: ["Lưu chuyển tiền thuần từ hoạt động kinh doanh"]
+
+  - name: capex
+    vi_label: Tiền chi mua sắm, xây dựng TSCĐ và tài sản dài hạn khác
+    statement: cash_flow
+    vas_code: "21"
+    unit: VND
+    sign: negative
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Tiền chi để mua sắm, xây dựng tài sản cố định và các tài sản dài hạn khác"]
+
+  - name: cfi
+    vi_label: Lưu chuyển tiền thuần từ hoạt động đầu tư
+    statement: cash_flow
+    vas_code: "30"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial, financial]
+    aliases: ["Lưu chuyển tiền thuần từ hoạt động đầu tư"]
+
+  - name: dividends_paid
+    vi_label: Cổ tức, lợi nhuận đã trả cho chủ sở hữu
+    statement: cash_flow
+    vas_code: "36"
+    unit: VND
+    sign: negative
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Cổ tức, lợi nhuận đã trả cho chủ sở hữu"]
+
+  - name: cff
+    vi_label: Lưu chuyển tiền thuần từ hoạt động tài chính
+    statement: cash_flow
+    vas_code: "40"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial, financial]
+    aliases: ["Lưu chuyển tiền thuần từ hoạt động tài chính"]
+
+  - name: net_cash_change
+    vi_label: Lưu chuyển tiền thuần trong kỳ
+    statement: cash_flow
+    vas_code: "50"
+    unit: VND
+    sign: any
+    is_flow: true
+    applies_to: [non_financial]
+    aliases: ["Lưu chuyển tiền thuần trong kỳ"]
+
+  - name: cash_end
+    vi_label: Tiền và tương đương tiền cuối kỳ
+    statement: cash_flow
+    vas_code: "70"
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    aliases: ["Tiền và tương đương tiền cuối kỳ"]
+
+  # ---------------------------------------------------------------- từ thuyết minh (văn xuôi)
+  # Nhóm này là chỗ dựa của giả thuyết H2. Không trích được bằng mã số mà bằng
+  # từ khoá trên phần văn bản ngoài bảng - độ phủ thấp hơn là bình thường.
+  - name: related_party_disclosed
+    vi_label: Có thuyết minh giao dịch với bên liên quan
+    statement: notes
+    vas_code: null
+    unit: ratio
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial, financial]
+    extract: text
+    patterns: ["bên liên quan", "các bên liên quan"]
+
+  - name: audit_opinion_qualified
+    vi_label: Ý kiến kiểm toán không phải chấp nhận toàn phần
+    statement: notes
+    vas_code: null
+    unit: ratio
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial, financial]
+    extract: text
+    patterns: ["ý kiến kiểm toán ngoại trừ", "ngoại trừ", "vấn đề cần nhấn mạnh", "không đưa ra ý kiến"]
+
+  - name: going_concern_flag
+    vi_label: Thuyết minh có nêu nghi ngờ khả năng hoạt động liên tục
+    statement: notes
+    vas_code: null
+    unit: ratio
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial, financial]
+    extract: text
+    patterns: ["hoạt động liên tục", "khả năng hoạt động liên tục"]
+
+  - name: segment_disclosed
+    vi_label: Có thuyết minh bộ phận theo lĩnh vực hoặc khu vực
+    statement: notes
+    vas_code: null
+    unit: ratio
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial]
+    extract: text
+    patterns: ["báo cáo bộ phận", "thông tin bộ phận"]
+
+  - name: contingent_liabilities_disclosed
+    vi_label: Có thuyết minh nợ tiềm tàng hoặc cam kết
+    statement: notes
+    vas_code: null
+    unit: ratio
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial, financial]
+    extract: text
+    patterns: ["nợ tiềm tàng", "cam kết thuê", "các cam kết"]
+
+  # ---------------------------------------------------------------- dữ liệu thị trường
+  # Chưa có ở P0 (cần OHLCV của P1, task #8). Giữ trong danh mục để mô hình được phép
+  # dùng khi sinh công thức, coverage sẽ là 0/40 cho tới khi P1 xong.
+  - name: market_cap
+    vi_label: Vốn hoá thị trường
+    statement: market
+    vas_code: null
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial, financial]
+    source: P1_ohlcv
+
+  - name: close_price
+    vi_label: Giá đóng cửa
+    statement: market
+    vas_code: null
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial, financial]
+    source: P1_ohlcv
+
+  - name: shares_outstanding
+    vi_label: Số cổ phiếu đang lưu hành
+    statement: market
+    vas_code: null
+    unit: shares
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial, financial]
+    source: P1_ohlcv
+
+  - name: adv20
+    vi_label: Giá trị giao dịch bình quân 20 phiên
+    statement: market
+    vas_code: null
+    unit: VND
+    sign: positive
+    is_flow: false
+    applies_to: [non_financial, financial]
+    source: P1_ohlcv

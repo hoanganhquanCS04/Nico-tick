@@ -1,0 +1,21 @@
+ticker,exchange,sector,cap_tier,years,is_financial,ocr_quality,n_years_available,reason
+ANV,HOSE,agri_fishery,small,"2017,2024",false,good,11,cá tra
+SHB,HOSE,bank,large,"2017,2024",true,good,11,ngân hàng tư nhân - chuyển sàn HNX sang HOSE 2021
+VCB,HOSE,bank,large,"2017,2024",true,good,11,ngân hàng quốc doanh
+CTD,HOSE,construction_materials,mid,"2017,2024",false,good,10,xây dựng - khoản phải thu rất lớn
+PC1,HOSE,construction_materials,mid,"2017,2024",false,good,11,xây lắp điện + thuỷ điện
+HAH,HOSE,logistics,small,"2017,2024",false,good,11,vận tải container - chu kỳ cước
+PVT,HOSE,logistics,mid,"2017,2024",false,good,11,vận tải dầu khí
+HPG,HOSE,manufacturing,large,"2017,2024",false,good,11,thép - chu kỳ rõ
+NTP,HNX,manufacturing,mid,"2017,2024",false,good,11,nhựa - biên lợi nhuận ổn định
+TNG,HNX,manufacturing,small,"2017,2024",false,good,5,dệt may vốn hoá nhỏ
+VGC,HOSE,manufacturing,mid,"2017,2024",false,good,11,vật liệu xây dựng + khu công nghiệp
+HUT,HNX,real_estate,small,"2017,2024",false,good,11,hạ tầng + BĐS
+IDC,HNX,real_estate,mid,"2017,2024",false,good,10,khu công nghiệp - doanh thu cho thuê dài hạn
+NLG,HOSE,real_estate,mid,"2017,2024",false,good,11,BĐS nhà ở tầm trung
+MWG,HOSE,retail_consumer,large,"2017,2024",false,good,11,bán lẻ - vòng quay hàng tồn kho nhanh
+PNJ,HOSE,retail_consumer,mid,"2017,2024",false,good,11,bán lẻ trang sức
+VNM,HOSE,retail_consumer,large,"2017,2024",false,good,11,sữa - dòng tiền ổn định
+BVS,HNX,securities,small,"2017,2024",true,good,11,chứng khoán vốn hoá nhỏ
+GAS,HOSE,utilities_energy,large,"2017,2024",false,good,11,khí - giá bán theo dầu
+POW,HOSE,utilities_energy,large,"2017,2024",false,good,9,nhiệt điện
