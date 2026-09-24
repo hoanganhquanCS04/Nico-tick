@@ -55,8 +55,8 @@ def extract_all(variables: list[dict]) -> dict:
     out = {}
     for r in rows:
         path = Path(r["local_path"])
-        if not path.exists():                       # manifest ghi đường dẫn tương đối
-            path = Path(*Path(r["local_path"]).parts)
+        if not path.exists():                       # repo bị chuyển chỗ -> dựng lại từ repo_path
+            path = Path("data/sample/raw") / r["repo_path"]
         text = path.read_text(encoding="utf-8", errors="replace")
         doc = parse_document(text)
         narrative = narrative_text(text)
