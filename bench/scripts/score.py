@@ -1,6 +1,6 @@
 """Chấm output thô và dựng bảng benchmark (việc 2.5 + chuẩn bị 2.6, spec P0-2).
 
-Đọc bench/raw/<model>__seed<k>.jsonl, chạy validator v0 trên raw_output (không tin phần parse
+Đọc bench/results/raw/<model>__seed<k>.jsonl, chạy validator v0 trên raw_output (không tin phần parse
 lúc chạy), rồi tổng hợp.
 
 Chỉ số chính là HỢP LỆ / YÊU CẦU: số công thức hợp lệ chia cho số công thức đã yêu cầu
@@ -22,15 +22,15 @@ VRAM: bộ cấp phát của PyTorch giữ lại bộ nhớ đã dùng (không t
 đỉnh torch.cuda.max_memory_allocated + phần ngữ cảnh CUDA đo lúc nạp (trung vị giữa các mô hình).
 
 Đầu ra:
-    bench/results.csv     một dòng / (mô hình, seed, cách parse) + dòng gộp
-    bench/table.md        bảng cho tờ trình + bảng phụ
-    bench/formulas.csv    toàn bộ công thức (parse lenient) đã chấm
-    eval/c4_blind.csv     (--c4-sample) 20 công thức hợp lệ / mô hình, GIẤU tên mô hình (việc 2.6)
-    eval/c4_key.csv       khoá giải mã, không mở khi đang chấm
+    bench/results/metrics.csv   một dòng / (mô hình, seed, cách parse) + dòng gộp
+    bench/results/table.md      bảng cho tờ trình + bảng phụ
+    bench/results/formulas.csv  toàn bộ công thức (parse lenient) đã chấm
+    eval/c4_blind.csv           (--c4-sample) 20 công thức hợp lệ / mô hình, GIẤU tên mô hình (việc 2.6)
+    eval/c4_key.csv             khoá giải mã, không mở khi đang chấm
 
 Chạy:
-    python bench/score.py
-    python bench/score.py --raw D:/hf_cache/bench_smoke --c4-sample
+    python bench/scripts/score.py
+    python bench/scripts/score.py --raw D:/hf_cache/bench_smoke --c4-sample
 """
 
 from __future__ import annotations
@@ -55,7 +55,7 @@ sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 VARIABLES = Path("config/variables.yaml")
 PROMPTS = Path("eval/prompts.jsonl")
-MODELS = Path(__file__).parent / "models.yaml"
+MODELS = Path(__file__).parent.parent / "config" / "models.yaml"
 RAW_NAME = re.compile(r"^(?P<model>.+)__seed(?P<seed>\d+)\.jsonl$")
 TS_FUNCS = {"lag", "delta", "growth", "mean", "std"}
 SCALE_FREE_FUNCS = {"safe_div", "growth", "rank", "zscore", "log"}
@@ -215,8 +215,8 @@ def spread(values: list[float]) -> str:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--raw", default="bench/raw")
-    ap.add_argument("--out", default="bench")
+    ap.add_argument("--raw", default="bench/results/raw")
+    ap.add_argument("--out", default="bench/results")
     ap.add_argument("--c4-sample", action="store_true", help="xuất mẫu chấm tay mù (việc 2.6)")
     ap.add_argument("--c4-n", type=int, default=20)
     args = ap.parse_args()
@@ -256,7 +256,7 @@ def main() -> None:
         for model in models:
             rows.append({"parse": mode, "model": model, "seed": "all", **pooled(mode, model)})
     out_dir.mkdir(parents=True, exist_ok=True)
-    with (out_dir / "results.csv").open("w", encoding="utf-8", newline="") as fh:
+    with (out_dir / "metrics.csv").open("w", encoding="utf-8", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=list(rows[0].keys()))
         w.writeheader()
         w.writerows(rows)
@@ -278,7 +278,7 @@ def main() -> None:
     S = {m: pooled("strict", m) for m in models}
     Lx = {m: pooled("lenient", m) for m in models}
     L = ["# Kết quả benchmark P0", "",
-         f"Sinh bởi `bench/score.py` từ `{raw_dir.as_posix()}`. Định nghĩa chỉ số: `bench/README.md`.", "",
+         f"Sinh bởi `bench/scripts/score.py` từ `{raw_dir.as_posix()}`. Định nghĩa chỉ số: `bench/README.md`.", "",
          "## Bảng chính (đưa vào tờ trình)", "",
          "| Mô hình | Tham số | **Hợp lệ / yêu cầu (%)** | Nếu cứu JSON (%) | Hợp lệ & chuẩn hoá quy mô (%) "
          "| VRAM ước tính cần (MB) | s / công thức hợp lệ | tok/s | JSON đúng (%) | Trùng (%) | Lượt |",

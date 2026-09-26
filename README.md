@@ -189,13 +189,13 @@ Ký hiệu trạng thái: ✅ đã có · 🟡 có nhưng chưa ổn · ❌ chư
 
 ╠═══════════════════════════ KHỐI 2 · SINH NHÂN TỐ ══════════════════════════════╣
 
- [4] AI VIẾT CÔNG THỨC                    bench/run_infer.py              P4
+ [4] AI VIẾT CÔNG THỨC                    bench/scripts/run_infer.py              P4
      vào : danh sách biến + đoạn thuyết minh + vài ví dụ mẫu
      ra  : JSON { tên, công thức, lý do, nguồn }
      ✅ đã benchmark 4 mô hình — Gemma-4-E2B dẫn đầu (mục 11)
                             │
                             ▼
- [5] MÁY KIỂM TRA                         bench/validator.py
+ [5] MÁY KIỂM TRA                         bench/scripts/validator.py
      cú pháp DSL · biến có thật · đúng số tham số · không chia trần · không trùng
      ✅ 10 bước    ❌ loại trích dẫn bịa    ❌ khử trùng theo tương quan (P4)
                             │
@@ -413,10 +413,9 @@ Nico-tick/
 │  ├─ c4_blind.csv            ✅ 80 công thức chờ chấm tay (giấu tên mô hình)
 │  └─ rubric.md               ❌ thang chấm
 ├─ bench/                     ✅ benchmark P0 — hướng dẫn trong bench/README.md
-│  ├─ models.yaml             4 ứng viên + revision đã ghim
-│  ├─ run_infer.py            chạy mô hình (Kaggle / local)
-│  ├─ validator.py            validator v0, nâng cấp ở P4
-│  ├─ score.py                chấm điểm → table.md, results.csv, formulas.csv
+│  ├─ config/                 models.yaml (4 ứng viên + revision), system_prompt.txt
+│  ├─ scripts/                run_infer · validator · score · inspect_formulas
+│  ├─ results/                table.md (bảng chính), metrics.csv, formulas.csv, raw/, logs/
 │  └─ kaggle_benchmark.ipynb
 ├─ src/
 │  ├─ data/                   ✅ tải mẫu, parse BCTC, dựng danh mục biến
@@ -468,11 +467,11 @@ nên viết ngay trong P2 và dùng chung bộ phân tích cú pháp với valid
 | Việc                                                              | Trạng thái             |
 | ------------------------------------------------------------------ | ------------------------ |
 | Bộ thử 76 prompt (4 họ F1–F4, thiết kế theo cặp)            | ✅`eval/prompts.jsonl` |
-| Benchmark 4 mô hình × 76 prompt × 3 seed, Kaggle T4, NF4 4-bit | ✅`bench/table.md`     |
+| Benchmark 4 mô hình × 76 prompt × 3 seed, Kaggle T4, NF4 4-bit | ✅`bench/results/table.md`     |
 | Chấm tay ý nghĩa kinh tế (C4)                                  | ❌ 0/80                  |
 | Tờ trình chốt mô hình                                         | ❌                       |
 
-**Kết quả benchmark** (công thức hợp lệ / công thức yêu cầu; chi tiết và định nghĩa trong `bench/table.md`):
+**Kết quả benchmark** (công thức hợp lệ / công thức yêu cầu; chi tiết và định nghĩa trong `bench/results/table.md`):
 
 | Mô hình                | Hợp lệ               | Nếu cứu JSON vỡ | VRAM cần | Nhận xét ngắn                                                                                          |
 | ------------------------ | ---------------------- | ------------------ | --------- | --------------------------------------------------------------------------------------------------------- |

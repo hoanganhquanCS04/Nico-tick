@@ -1,6 +1,6 @@
 # Kết quả benchmark P0
 
-Sinh bởi `bench/score.py` từ `bench/raw`. Định nghĩa chỉ số: `bench/README.md`.
+Sinh bởi `bench/scripts/score.py` từ `bench/results/raw`. Định nghĩa chỉ số: `bench/README.md`.
 
 ## Bảng chính (đưa vào tờ trình)
 

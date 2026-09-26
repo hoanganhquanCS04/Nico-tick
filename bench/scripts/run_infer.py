@@ -1,10 +1,10 @@
 """Chạy một mô hình ứng viên trên toàn bộ bộ thử (việc 2.2 + 2.4, spec P0-2).
 
-Mỗi lượt gọi = (prompt, seed) -> một dòng JSON trong bench/raw/<key>__seed<k>.jsonl, ghi và
+Mỗi lượt gọi = (prompt, seed) -> một dòng JSON trong bench/results/raw/<key>__seed<k>.jsonl, ghi và
 flush ngay. Chạy lại cùng lệnh sẽ BỎ QUA các lượt đã có -> Kaggle rớt phiên thì chạy tiếp được.
 Seed đặt lại trước MỖI lượt nên kết quả không phụ thuộc thứ tự chạy hay việc chạy tiếp.
 
-Không chấm điểm ở đây ngoài việc parse JSON để in tiến độ - chấm bằng bench/score.py trên
+Không chấm điểm ở đây ngoài việc parse JSON để in tiến độ - chấm bằng bench/scripts/score.py trên
 output thô, để sửa validator thì không phải chạy lại mô hình.
 
 VRAM đo hai cách (spec P0-2 mục 3):
@@ -13,9 +13,9 @@ VRAM đo hai cách (spec P0-2 mục 3):
                          (gồm CUDA context + phân mảnh - con số quyết định có vừa card hay không)
 
 Chạy:
-    python bench/run_infer.py --model qwen35-2b                      # đủ bộ thử x 3 seed
-    python bench/run_infer.py --model qwen35-2b --seeds 0 --limit 2  # chạy thử
-    python bench/run_infer.py --model qwen35-0.8b --quant none       # không lượng tử (máy thiếu bitsandbytes)
+    python bench/scripts/run_infer.py --model qwen35-2b                      # đủ bộ thử x 3 seed
+    python bench/scripts/run_infer.py --model qwen35-2b --seeds 0 --limit 2  # chạy thử
+    python bench/scripts/run_infer.py --model qwen35-0.8b --quant none       # không lượng tử (máy thiếu bitsandbytes)
 """
 
 from __future__ import annotations
@@ -39,9 +39,9 @@ from validator import extract_json  # noqa: E402
 
 sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-MODELS = Path(__file__).parent / "models.yaml"
+MODELS = Path(__file__).parent.parent / "config" / "models.yaml"
 PROMPTS = Path("eval/prompts.jsonl")
-SYSTEM_PROMPT = Path("bench/system_prompt.txt")
+SYSTEM_PROMPT = Path("bench/config/system_prompt.txt")
 
 
 # ============================================================================ cấu hình
@@ -215,13 +215,13 @@ def param_counts(model) -> dict:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--model", required=True, help="key trong bench/models.yaml")
+    ap.add_argument("--model", required=True, help="key trong bench/config/models.yaml")
     ap.add_argument("--seeds", type=int, nargs="*", help="mặc định lấy từ models.yaml")
     ap.add_argument("--limit", type=int, help="chỉ chạy N prompt đầu (chạy thử)")
     ap.add_argument("--families", nargs="*", help="lọc họ, ví dụ F1 F2")
     ap.add_argument("--ids", nargs="*", help="lọc prompt id")
     ap.add_argument("--quant", choices=["nf4", "none"], help="mặc định lấy từ models.yaml")
-    ap.add_argument("--out", default="bench/raw")
+    ap.add_argument("--out", default="bench/results/raw")
     ap.add_argument("--local-path", help="nạp từ thư mục đã tải sẵn (đúng revision trong models.yaml)")
     args = ap.parse_args()
 

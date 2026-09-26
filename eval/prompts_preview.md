@@ -2,7 +2,7 @@
 
 Sinh tự động bởi `src/eval/build_prompts.py`. **Không sửa tay** - sửa script rồi chạy lại.
 
-Tổng **76** prompt: F1 = 17, F2 = 25, F3 = 19, F4 = 15. Mỗi prompt yêu cầu 3 công thức. System prompt chung: `bench/system_prompt.txt`.
+Tổng **76** prompt: F1 = 17, F2 = 25, F3 = 19, F4 = 15. Mỗi prompt yêu cầu 3 công thức. System prompt chung: `bench/config/system_prompt.txt`.
 
 Đoạn thuyết minh (F2/F3): 185-719 từ, trung vị 440.
 

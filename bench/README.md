@@ -3,9 +3,35 @@
 Trả lời một câu: **chốt mô hình nào làm bộ sinh công thức**, bằng số đo trên phần cứng thật.
 Spec: [docs/specs/P0-2-benchmark.md](../docs/specs/P0-2-benchmark.md).
 
+## Cấu trúc thư mục
+
+```
+bench/
+├─ README.md                  file này
+├─ kaggle_benchmark.ipynb     chạy trên Kaggle (cách chính)
+├─ config/                    ĐẦU VÀO - sửa ở đây để đổi thí nghiệm
+│  ├─ models.yaml             ứng viên + revision đã ghim + cấu hình sinh chung
+│  └─ system_prompt.txt       system prompt chung (sinh từ src/eval/build_prompts.py, không sửa tay)
+├─ scripts/                   CODE
+│  ├─ run_infer.py            chạy 1 mô hình trên bộ thử → results/raw/
+│  ├─ validator.py            kiểm tra công thức (validator v0)
+│  ├─ score.py                chấm điểm → results/table.md, metrics.csv, formulas.csv
+│  └─ inspect_formulas.py     soi ngữ nghĩa công thức 1 mô hình → results/formulas_<model>.md
+└─ results/                   ĐẦU RA - sinh lại được từ raw/, không sửa tay
+   ├─ raw/                    output thô từng lượt gọi (không commit)
+   ├─ logs/                   log chạy trên Kaggle
+   ├─ smoke/                  lần chạy thử 2 prompt / mô hình
+   ├─ table.md                BẢNG CHÍNH cho tờ trình
+   ├─ metrics.csv             chỉ số theo (cách parse, mô hình, seed)
+   ├─ formulas.csv            mọi công thức đã chấm
+   └─ formulas_<model>.md     công thức của từng mô hình, phân loại theo chủ đề và lỗi
+```
+
+Mọi lệnh chạy từ thư mục gốc repo (`Nico-tick/`).
+
 ## Ứng viên
 
-Cấu hình đầy đủ và lý do chọn ở [models.yaml](models.yaml). Revision ghim ngày 24/09/2026.
+Cấu hình đầy đủ và lý do chọn ở [config/models.yaml](config/models.yaml). Revision ghim ngày 24/09/2026.
 
 | Slot | key | Mô hình | Revision | Ghi chú |
 |---|---|---|---|---|
@@ -22,7 +48,7 @@ Cả 4 mô hình không gated, license Apache 2.0.
 | Tham số | Giá trị |
 |---|---|
 | Bộ thử | `eval/prompts.jsonl`: 76 prompt (F1 17, F2 25, F3 19, F4 15), 3 công thức/prompt |
-| System prompt | `bench/system_prompt.txt`, một bản duy nhất |
+| System prompt | `bench/config/system_prompt.txt`, một bản duy nhất |
 | Seed | 0, 1, 2 (đặt lại trước MỖI lượt gọi) |
 | Sinh | temperature 0,2 · top_p 0,9 · top_k tắt · repetition_penalty 1,0 · max_new_tokens 512 |
 | Lượng tử | bitsandbytes NF4 + double quant, compute float16 |
@@ -50,7 +76,7 @@ mặc định repetition_penalty=1,1). Điều kiện dừng gồm cả eos củ
 
 **Hợp lệ** = C1 (parse được theo DSL: đúng hàm, đúng số tham số, k ∈ {1,2,4,8}, không có `/` trần,
 độ sâu ≤ 6, ≤ 6 biến, không phải hằng số) ∧ C2 (mọi biến có trong `config/variables.yaml`)
-∧ C3 (không trùng dạng chuẩn hoá; chép lại ví dụ mẫu của F3 cũng tính là trùng). Mã lỗi: `validator.py`.
+∧ C3 (không trùng dạng chuẩn hoá; chép lại ví dụ mẫu của F3 cũng tính là trùng). Mã lỗi: `scripts/validator.py`.
 
 Giới hạn cần ghi trong tờ trình: C3 hiện khử trùng theo chuỗi chuẩn hoá. P4 sẽ thay bằng khử trùng
 theo tương quan (|corr| > 0,95) khi có dữ liệu quý.
@@ -64,13 +90,14 @@ Chạy thử 2 prompt/mô hình trước (ô 3), sau đó chạy thật với 2 
 **Máy local:**
 
 ```bash
-python bench/run_infer.py --model qwen35-2b                       # đủ bộ thử x 3 seed
-python bench/run_infer.py --model qwen35-2b --seeds 0 --limit 2   # chạy thử
-python bench/run_infer.py --model qwen35-0.8b --quant none        # máy chưa có bitsandbytes
-python bench/score.py --c4-sample                                 # chấm + bảng + mẫu chấm tay mù
+python bench/scripts/run_infer.py --model qwen35-2b                       # đủ bộ thử x 3 seed
+python bench/scripts/run_infer.py --model qwen35-2b --seeds 0 --limit 2   # chạy thử
+python bench/scripts/run_infer.py --model qwen35-0.8b --quant none        # máy chưa có bitsandbytes
+python bench/scripts/score.py --c4-sample                                 # chấm + bảng + mẫu chấm tay mù
+python bench/scripts/inspect_formulas.py --model gemma4-e2b-plecpu        # soi công thức 1 mô hình
 ```
 
-Chạy lại cùng lệnh sẽ tự bỏ qua các lượt đã có trong `bench/raw/`, nên bị ngắt giữa chừng thì cứ chạy lại.
+Chạy lại cùng lệnh sẽ tự bỏ qua các lượt đã có trong `bench/results/raw/`, nên bị ngắt giữa chừng thì cứ chạy lại.
 Trên Windows mà HF không tạo được symlink thì tải trước bằng `snapshot_download(..., local_dir=...)`
 rồi truyền `--local-path`.
 
@@ -78,17 +105,18 @@ rồi truyền `--local-path`.
 
 | File | Nội dung |
 |---|---|
-| `bench/raw/<key>__seed<k>.jsonl` | Một dòng / lượt gọi: output thô nguyên văn, token, thời gian, VRAM. Không commit |
-| `bench/raw/<key>__meta.json` | GPU, phiên bản thư viện, VRAM sau nạp, module đưa ra CPU |
-| `bench/table.md` | Bảng chính cho tờ trình + bảng theo họ prompt, theo nhóm ngành, lỗi hay gặp |
-| `bench/results.csv` | Chỉ số theo (mô hình, seed) và gộp |
-| `bench/formulas.csv` | Mọi công thức đã chấm, kèm lý do không hợp lệ |
+| `results/raw/<key>__seed<k>.jsonl` | Một dòng / lượt gọi: output thô nguyên văn, token, thời gian, VRAM. Không commit |
+| `results/raw/<key>__meta.json` | GPU, phiên bản thư viện, VRAM sau nạp, module đưa ra CPU |
+| `results/table.md` | Bảng chính cho tờ trình + bảng theo họ prompt, theo nhóm ngành, lỗi hay gặp |
+| `results/metrics.csv` | Chỉ số theo (cách parse, mô hình, seed) và gộp |
+| `results/formulas.csv` | Mọi công thức đã chấm, kèm lý do không hợp lệ |
+| `results/formulas_<model>.md` | Công thức của 1 mô hình theo chủ đề: dạng, họ nhân tố, lỗi ngữ nghĩa |
 | `eval/c4_blind.csv`, `eval/c4_key.csv` | Mẫu chấm tay đã giấu tên mô hình và khoá giải mã |
 
 ## Rủi ro đã biết
 
 - **Gemma trên T4 với float16:** họ Gemma từng bị tràn số ở fp16. Nếu lần chạy thử ra chuỗi rỗng hoặc
-  ký tự lặp vô nghĩa, đổi `compute_dtype: float32` riêng cho Gemma trong `models.yaml` và ghi rõ vào tờ trình.
+  ký tự lặp vô nghĩa, đổi `compute_dtype: float32` riêng cho Gemma trong `config/models.yaml` và ghi rõ vào tờ trình.
 - **Tốc độ Qwen3.5:** không cài `flash-linear-attention` thì transformers chạy nhánh torch cho các lớp
   linear attention. Số tok/s là cận dưới, ghi rõ khi báo cáo.
 - **Sailor2 context 4096:** prompt dài nhất 3.448 token + 512 sinh = 3.960 token. Nếu sửa bộ thử cho dài

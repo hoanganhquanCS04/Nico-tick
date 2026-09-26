@@ -14,7 +14,7 @@ Các prompt cùng `pair_id` chỉ khác nhau đúng một yếu tố.
 công ty nào cũng giống nhau) trừ khi mục riêng ngắn hơn 300 từ thì ghép thêm làm đoạn thứ hai.
 
 Đầu vào : config/variables.yaml, data/sample/tickers.csv, data/sample/manifest.csv
-Đầu ra  : eval/prompts.jsonl, eval/prompts_preview.md, bench/system_prompt.txt
+Đầu ra  : eval/prompts.jsonl, eval/prompts_preview.md, bench/config/system_prompt.txt
 
 Chạy:
     python src/eval/build_prompts.py --scan     # soi mục thuyết minh nào có trong báo cáo nào
@@ -45,7 +45,7 @@ MANIFEST = Path("data/sample/manifest.csv")
 RAW_ROOT = Path("data/sample/raw")
 PROMPTS = Path("eval/prompts.jsonl")
 PREVIEW = Path("eval/prompts_preview.md")
-SYSTEM_PROMPT = Path("bench/system_prompt.txt")
+SYSTEM_PROMPT = Path("bench/config/system_prompt.txt")
 
 N_FORMULAS = 3
 MIN_WORDS, MAX_WORDS = 300, 800          # độ dài đoạn thuyết minh, spec P0-1 mục 6.2

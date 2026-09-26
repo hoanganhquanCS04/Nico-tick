@@ -6,7 +6,7 @@ data/processed/
 **/.cache/huggingface/
 
 # Kết quả chạy mô hình
-bench/raw/
+bench/results/raw/
 *.gguf
 *.safetensors
 
