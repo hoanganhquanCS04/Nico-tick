@@ -36,13 +36,16 @@ mặc định repetition_penalty=1,1). Điều kiện dừng gồm cả eos củ
 
 | Chỉ số | Cách tính |
 |---|---|
-| `json_rate` | số lượt parse được JSON / tổng số lượt gọi |
-| `valid_rate` | số công thức qua C1∧C2∧C3 / tổng số công thức sinh ra. Báo trung bình ± độ lệch chuẩn giữa 3 seed |
-| `dup_rate` | 1 − (số `canonical` duy nhất / số công thức qua C1∧C2), trong từng lượt chạy (mô hình × seed) |
+| `yield` (**chỉ số chính**) | số công thức qua C1∧C2∧C3 / số công thức **đã yêu cầu** (3 × số lượt). Lượt hỏng JSON = 0, không bị loại khỏi mẫu số. Báo trung bình ± độ lệch chuẩn giữa 3 seed |
+| `yield` (cứu JSON) | như trên, nhưng gom lại công thức từ output vỡ vỏ JSON (`extract_json_lenient`). Tách năng lực viết công thức khỏi lỗi định dạng |
+| `valid_of_parsed` | hợp lệ / số công thức **đọc được**. Chỉ để tham khảo: mô hình hỏng format càng nhiều càng được lợi |
+| `usable_yield` | hợp lệ **và** có chuẩn hoá quy mô (tỷ số, tăng trưởng, xếp hạng) / yêu cầu. `total_assets + total_liabilities` hợp lệ cú pháp nhưng chỉ đo quy mô |
+| `json_rate` | số lượt parse được JSON đúng yêu cầu / tổng số lượt gọi |
+| `dup_rate` | 1 − (số `canonical` duy nhất / số công thức qua C1∧C2), trong từng lượt chạy (mô hình × seed); dòng gộp = trung bình các seed |
 | `tok_per_s` | tổng token sinh ra / tổng thời gian sinh (gồm cả prefill) |
 | `s_per_valid` | tổng thời gian / số công thức **hợp lệ**. Quan trọng hơn tok/s: nhanh mà sinh rác thì vẫn đắt |
-| `vram_nvml_peak_mb` | đỉnh bộ nhớ đã dùng của **cả card** (NVML, 20 mẫu/giây) trong lúc sinh. Con số đưa vào tờ trình |
-| `vram_torch_peak_mb` | `torch.cuda.max_memory_allocated()`, reset trước mỗi lượt. Chỉ để đối chiếu |
+| VRAM ước tính cần | đỉnh `torch.cuda.max_memory_allocated()` + ngữ cảnh CUDA đo lúc nạp (~600 MB). **Con số đưa vào tờ trình** |
+| `vram_nvml_peak_mb` | đỉnh bộ nhớ cả card (NVML). Chỉ tham khảo: trên T4 16GB bộ cấp phát PyTorch giữ lại bộ nhớ nên con số phình theo prompt dài nhất |
 | `c4_mean` | điểm nghĩa kinh tế 1–5, chấm tay mù 20 công thức/mô hình (`eval/c4_blind.csv`) |
 
 **Hợp lệ** = C1 (parse được theo DSL: đúng hàm, đúng số tham số, k ∈ {1,2,4,8}, không có `/` trần,

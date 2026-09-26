@@ -4,52 +4,66 @@ Sinh bởi `bench/score.py` từ `bench/raw`. Định nghĩa chỉ số: `bench/
 
 ## Bảng chính (đưa vào tờ trình)
 
-| Mô hình | Tham số | VRAM đỉnh card (MB) | VRAM torch (MB) | tok/s | s/công thức hợp lệ | Hợp lệ (%) | Trùng (%) | JSON (%) | Seed | Lượt |
+| Mô hình | Tham số | **Hợp lệ / yêu cầu (%)** | Nếu cứu JSON (%) | Hợp lệ & chuẩn hoá quy mô (%) | VRAM ước tính cần (MB) | s / công thức hợp lệ | tok/s | JSON đúng (%) | Trùng (%) | Lượt |
 |---|---|---|---|---|---|---|---|---|---|---|
-| qwen35-2b | 2B | 5429 (nền 451) | 2685.5 | 13.73 | 49.03 | 50.6 ± 8.4 | 22.7 | 61.4 | 3 | 228 |
-| gemma4-e2b-gpu * | E2B (5,1B tổng) | 8761 (nền 451) | 7378.7 | 10.16 | 47.26 | 29.6 | 33.3 | 90.0 | 1 | 10 |
-| gemma4-e2b-plecpu | E2B (5,1B tổng) | 7083 (nền 451) | 3054.7 | 9.91 | 27.9 | 51.2 ± 2.1 | 42.5 | 92.1 | 3 | 228 |
-| qwen35-0.8b | 0,8B | 4505 (nền 451) | 1757.6 | 14.06 | 77.89 | 21.6 ± 1.7 | 64.1 | 55.7 | 3 | 228 |
-| sailor2-1b | 1B | 7257 (nền 451) | 2513.7 | 10.6 | 305.97 | 22.1 ± 7.9 | 9.8 | 31.1 | 3 | 228 |
+| qwen35-2b | 2B | **13.3 ± 2.4** | 30.3 | 30.3 | 3291 | 49.0 | 13.73 | 61.4 | 6.7 | 228 |
+| gemma4-e2b-gpu * | E2B (5,1B tổng) | **26.7** | 33.3 | 33.3 | 7984 | 47.3 | 10.16 | 90.0 | 33.3 | 10 |
+| gemma4-e2b-plecpu | E2B (5,1B tổng) | **47.2 ± 2.6** | 49.9 | 46.5 | 3660 | 27.9 | 9.91 | 92.1 | 12.2 | 228 |
+| qwen35-0.8b | 0,8B | **12.0 ± 1.1** | 16.2 | 13.3 | 2363 | 77.9 | 14.06 | 55.7 | 41.7 | 228 |
+| sailor2-1b | 1B | **3.8 ± 2.4** | 11.3 | 2.5 | 3119 | 376.6 | 10.6 | 31.1 | 6.7 | 228 |
 
-Hợp lệ = parse được theo DSL ∧ mọi biến có trong danh mục ∧ không trùng (dạng chuẩn hoá). Giá trị `a ± b` = trung bình ± độ lệch chuẩn giữa các seed. `*` = dòng tham chiếu VRAM, không chạy đủ bộ thử.
+- **Hợp lệ / yêu cầu** = số công thức qua C1∧C2∧C3 / số công thức đã yêu cầu (3 × số lượt). Lượt hỏng JSON = 0 công thức hợp lệ. `a ± b` = trung bình ± độ lệch chuẩn giữa các seed.
+- **Nếu cứu JSON** = như trên nhưng gom lại công thức từ output vỡ vỏ JSON (ước lượng cận trên khi có GCD).
+- **Chuẩn hoá quy mô** = công thức hợp lệ có tỷ số/tăng trưởng/xếp hạng, so sánh được giữa công ty lớn và nhỏ (parse lenient).
+- **VRAM ước tính cần** = đỉnh `torch.cuda.max_memory_allocated` + 605 MB ngữ cảnh CUDA (trung vị đo lúc nạp). Không dùng đỉnh NVML: trên T4 16GB bộ cấp phát giữ lại bộ nhớ nên con số đó phình to.
+- **Trùng** = trung bình tỷ lệ trùng của từng seed. `*` = dòng tham chiếu, chỉ chạy 10 prompt × 1 seed.
 
-## Theo họ prompt (tỷ lệ hợp lệ %, gộp seed)
+## Theo họ prompt (hợp lệ / yêu cầu %, strict · cứu JSON)
 
-| Mô hình | F1 chỉ biến | F2 + thuyết minh | F3 + ví dụ | F4 ép format | F2: có dùng thuyết minh | F2: trích dẫn đúng nguyên văn |
+| Mô hình | F1 chỉ biến | F2 + thuyết minh | F3 + ví dụ | F4 ép format | F2: có công thức lấy từ thuyết minh | F2: trích dẫn đúng nguyên văn |
 |---|---|---|---|---|---|---|
-| qwen35-2b | 27.9 | 30.6 | 92.3 | 66.7 | 69.3 | 32.8 |
-| gemma4-e2b-gpu | 11.1 | 55.6 | 33.3 | 16.7 | 33.3 | 100.0 |
-| gemma4-e2b-plecpu | 38.7 | 52.0 | 66.0 | 45.7 | 89.3 | 71.2 |
-| qwen35-0.8b | 2.8 | 5.8 | 32.0 | 50.0 | 46.7 | 42.2 |
-| sailor2-1b | 10.5 | 0.0 | 2.2 | 61.7 | 9.3 | 0.0 |
+| qwen35-2b | 7.8 · 9.8 | 8.4 · 18.2 | 21.1 · 55.6 | 17.8 · 41.5 | 93.3 | 38.9 |
+| gemma4-e2b-gpu | 11.1 · 11.1 | 55.6 · 55.6 | 16.7 · 50.0 | 16.7 · 16.7 | 33.3 | 100.0 |
+| gemma4-e2b-plecpu | 37.9 · 37.9 | 50.7 · 51.6 | 60.2 · 65.5 | 35.6 · 40.7 | 92.0 | 70.7 |
+| qwen35-0.8b | 1.3 · 2.6 | 2.7 · 3.1 | 29.2 · 32.8 | 17.8 · 32.6 | 98.7 | 36.4 |
+| sailor2-1b | 1.3 · 2.6 | 0.0 · 1.3 | 0.6 · 1.2 | 17.0 · 50.4 | 16.0 | 0.0 |
 
-## Theo nhóm doanh nghiệp (tỷ lệ hợp lệ %)
+## Theo nhóm doanh nghiệp và tuân thủ yêu cầu (strict)
 
-| Mô hình | Phi tài chính | Ngân hàng / chứng khoán | Đúng số công thức (%) | Dùng biến bắt buộc (%) | Chạm trần 512 token (%) |
-|---|---|---|---|---|---|
-| qwen35-2b | 52.2 | 38.1 | 8.3 | 57.9 | 11.4 |
-| gemma4-e2b-gpu | 29.6 | - | 90.0 | 90.0 | 0.0 |
-| gemma4-e2b-plecpu | 52.3 | 44.8 | 92.1 | 86.0 | 1.8 |
-| qwen35-0.8b | 22.4 | 16.7 | 55.3 | 28.5 | 23.2 |
-| sailor2-1b | 25.4 | 0.0 | 8.3 | 19.3 | 62.3 |
+| Mô hình | Phi tài chính (%) | Ngân hàng / chứng khoán (%) | Đúng 3 công thức (%) | Dùng biến bắt buộc (%, cứu JSON) | Chạm trần 512 token (%) | Độ trễ TB / lượt (s) |
+|---|---|---|---|---|---|---|
+| qwen35-2b | 14.0 | 8.9 | 8.3 | 86.4 | 11.4 | 19.6 |
+| gemma4-e2b-gpu | 26.7 | - | 90.0 | 100.0 | 0.0 | 37.8 |
+| gemma4-e2b-plecpu | 47.8 | 43.3 | 92.1 | 92.5 | 1.8 | 39.5 |
+| qwen35-0.8b | 12.5 | 8.9 | 55.3 | 37.3 | 23.2 | 28.0 |
+| sailor2-1b | 4.4 | 0.0 | 8.3 | 25.0 | 62.3 | 42.9 |
 
-## Lỗi hay gặp (số công thức)
+## Chất lượng trong số công thức hợp lệ (cứu JSON)
 
-| Mô hình | 5 lỗi nhiều nhất |
-|---|---|
-| qwen35-2b | json_parse_error 88, raw_division 64, syntax_error 13, bad_arity 10, duplicate 8 |
-| gemma4-e2b-gpu | bad_arity 7, syntax_error 5, duplicate 5, raw_division 2, constant_only 1 |
-| gemma4-e2b-plecpu | bad_arity 110, syntax_error 98, raw_division 55, duplicate 50, json_parse_error 18 |
-| qwen35-0.8b | syntax_error 155, json_parse_error 101, copied_fewshot 100, bad_arity 20, raw_division 12 |
-| sailor2-1b | json_parse_error 157, syntax_error 46, missing_field 27, not_object 21, unknown_var 21 |
+| Mô hình | Số hợp lệ | Khác nhau (3 seed gộp) | Chuẩn hoá quy mô (%) | Chỉ 1 biến (%) | Có hàm chuỗi thời gian (%) | Dùng biến thuyết minh (%) |
+|---|---|---|---|---|---|---|
+| qwen35-2b | 207 | 151 | 100.0 | 10.6 | 24.1 | 4.8 |
+| gemma4-e2b-gpu | 10 | 10 | 100.0 | 60.0 | 60.0 | 0.0 |
+| gemma4-e2b-plecpu | 341 | 221 | 93.3 | 36.7 | 49.0 | 11.4 |
+| qwen35-0.8b | 111 | 79 | 82.0 | 41.4 | 33.3 | 7.2 |
+| sailor2-1b | 94 | 81 | 18.1 | 25.5 | 9.6 | 12.8 |
+
+## Lỗi hay gặp
+
+| Mô hình | Lượt hỏng JSON (strict) | Cứu được | 6 lỗi công thức nhiều nhất (cứu JSON) |
+|---|---|---|---|
+| qwen35-2b | 88 | 76 | raw_division 125, duplicate 49, bad_arity:safe_div 21, syntax_error 15, unknown_var 9, bad_lag 6 |
+| gemma4-e2b-gpu | 1 | 1 | bad_arity:zscore 5, syntax_error 5, duplicate 5, raw_division 3, bad_arity:growth 2, constant_only 1 |
+| gemma4-e2b-plecpu | 18 | 18 | syntax_error 102, bad_arity:zscore 77, raw_division 61, duplicate 54, bad_arity:growth 18, bad_arity:rank 14 |
+| qwen35-0.8b | 101 | 99 | syntax_error 278, copied_fewshot 104, duplicate 58, bad_arity:rank 36, unknown_var 33, bad_arity:zscore 30 |
+| sailor2-1b | 157 | 80 | syntax_error 147, missing_field 66, unknown_var 43, copied_fewshot 31, duplicate 28, not_object 21 |
 
 ## Điều kiện đo
 
-| Mô hình | GPU | Lượng tử | dtype | Nạp (s) | VRAM sau nạp (MB) | Module đưa ra CPU | transformers | bitsandbytes |
-|---|---|---|---|---|---|---|---|---|
-| qwen35-2b | Tesla T4 | nf4 | float16 | 18.5 | 2245.1875 | - | 5.5.0 | 0.50.2 |
-| gemma4-e2b-gpu | Tesla T4 | nf4 | float16 | 11.8 | 7109.1875 | - | 5.5.0 | 0.50.2 |
-| gemma4-e2b-plecpu | Tesla T4 | nf4 | float16 | 18.4 | 7045.1875 | embed_tokens_per_layer; vision_tower; embed_vision; audio_tower; embed_audio | 5.5.0 | 0.50.2 |
-| qwen35-0.8b | Tesla T4 | nf4 | float16 | 8.9 | 1349.1875 | - | 5.5.0 | 0.50.2 |
-| sailor2-1b | Tesla T4 | nf4 | float16 | 9.7 | 1487.1875 | - | 5.5.0 | 0.50.2 |
+| Mô hình | GPU | Lượng tử | dtype | Nạp (s) | torch sau nạp (MB) | Đỉnh torch (MB) | Đỉnh NVML (MB, tham khảo) | Module đưa ra CPU | transformers | bitsandbytes |
+|---|---|---|---|---|---|---|---|---|---|---|
+| qwen35-2b | Tesla T4 | nf4 | float16 | 18.5 | 1654.9 | 2685.5 | 5429.2 | - | 5.5.0 | 0.50.2 |
+| gemma4-e2b-gpu | Tesla T4 | nf4 | float16 | 11.8 | 6449.4 | 7378.7 | 8761.2 | - | 5.5.0 | 0.50.2 |
+| gemma4-e2b-plecpu | Tesla T4 | nf4 | float16 | 18.4 | 1710.9 | 3054.7 | 7083.2 | embed_tokens_per_layer; vision_tower; embed_vision; audio_tower; embed_audio | 5.5.0 | 0.50.2 |
+| qwen35-0.8b | Tesla T4 | nf4 | float16 | 8.9 | 746.6 | 1757.6 | 4505.2 | - | 5.5.0 | 0.50.2 |
+| sailor2-1b | Tesla T4 | nf4 | float16 | 9.7 | 881.7 | 2513.7 | 7257.2 | - | 5.5.0 | 0.50.2 |
