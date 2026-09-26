@@ -367,6 +367,9 @@ công thức, trích dẫn có thật trong văn bản gốc, kết quả backte
 
 ## 7. Lộ trình
 
+Vai → người (đề xuất, chốt 27/09): **ML** = Quân (kiêm quản lý dự án) · **Data** = Thắng (kiêm RAG, demo) · **Quant** = Trung.
+Việc chi tiết, hạn và trạng thái: [docs/pm/](docs/pm/README.md).
+
 | Pha          | Nội dung                                                                                                                                 | Hạn            | Người       |
 | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------- | --------------- | ------------- |
 | **P0** | Chốt mô hình: bộ thử, benchmark, tờ trình                                                                                          | **24/09** | ML, cả nhóm |
@@ -411,10 +414,10 @@ Nico-tick/
 │  ├─ prompts.jsonl           ✅ bộ thử 76 prompt (F1–F4), sinh bằng src/eval/build_prompts.py
 │  ├─ prompts_preview.md      ✅ bản dễ đọc của bộ thử
 │  ├─ c4_blind.csv            ✅ 80 công thức chờ chấm tay (giấu tên mô hình)
-│  └─ rubric.md               ❌ thang chấm
+│  └─ rubric.md               🟡 thang chấm C4 + quy trình chấm mù (bản nháp, chờ nhóm duyệt)
 ├─ bench/                     ✅ benchmark P0 — hướng dẫn trong bench/README.md
 │  ├─ config/                 models.yaml (4 ứng viên + revision), system_prompt.txt
-│  ├─ scripts/                run_infer · validator · score · inspect_formulas
+│  ├─ scripts/                run_infer · validator · score · inspect_formulas · c4_merge
 │  ├─ results/                table.md (bảng chính), metrics.csv, formulas.csv, raw/, logs/
 │  └─ kaggle_benchmark.ipynb
 ├─ src/
@@ -424,7 +427,8 @@ Nico-tick/
 │  ├─ generation/             ❌ P4: sinh công thức
 │  ├─ factor/                 ❌ P5: bộ tính DSL, LightGBM / MLP
 │  └─ backtest/               ❌ P2: pipeline, mô hình chi phí VN
-├─ docs/                      GAP_research.pdf, Timelines.xlsx, P0_breakdown.md, specs/
+├─ docs/                      GAP_research.pdf, Timelines.xlsx (kế hoạch gốc), P0_breakdown.md, specs/
+│  └─ pm/                     ✅ quản lý dự án: phân công, việc, rủi ro, quyết định, biên bản họp
 └─ report/                    ❌
 ```
 
@@ -483,6 +487,7 @@ nên viết ngay trong P2 và dùng chung bộ phân tích cú pháp với valid
 **Chưa mô hình nào đạt ngưỡng CHỐT 2 (≥60%)**, nhưng phần lớn lỗi là lỗi cơ học (định dạng, dấu `/`,
 thừa tham số), loại lỗi mà giải mã ràng buộc ngữ pháp (GCD) chặn được → thử GCD sớm, trước P4.
 
+- Quản lý dự án (phân công, bảng việc, rủi ro, quyết định): [docs/pm/](docs/pm/README.md)
 - Bóc tách công việc P0: [docs/P0_breakdown.md](docs/P0_breakdown.md)
 - Spec từng task: [docs/specs/](docs/specs/)
 - Hướng dẫn chạy benchmark: [bench/README.md](bench/README.md)
