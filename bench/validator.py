@@ -64,6 +64,35 @@ def extract_json(raw: str) -> tuple[list | None, str | None]:
     return None, "json_parse_error"
 
 
+def extract_json_lenient(raw: str) -> tuple[list | None, str]:
+    """Như extract_json, nhưng nếu hỏng thì gom mọi object có khoá 'formula' từ các giá trị JSON
+    nối tiếp nhau. Dùng để tách LỖI VỎ (Qwen3.5-2B hay trả `[{..}]} [{..}]} [{..}]}`) khỏi năng lực
+    viết công thức. Trả (danh sách, 'strict' | 'recovered') hoặc (None, 'fail')."""
+    items, _ = extract_json(raw)
+    if items is not None:
+        return items, "strict"
+    text = FENCE_RE.sub("", THINK_RE.sub("", raw))
+    dec, out, i = json.JSONDecoder(), [], 0
+    while i < len(text):
+        if text[i] in "[{":
+            try:
+                val, j = dec.raw_decode(text, i)
+            except json.JSONDecodeError:
+                i += 1
+                continue
+            stack = [val]
+            while stack:
+                x = stack.pop(0)
+                if isinstance(x, list):
+                    stack = x + stack
+                elif isinstance(x, dict) and "formula" in x:
+                    out.append(x)
+            i = j
+            continue
+        i += 1
+    return (out, "recovered") if out else (None, "fail")
+
+
 # ============================================================================ bước 3-10: công thức
 
 def depth(node: ast.AST) -> int:

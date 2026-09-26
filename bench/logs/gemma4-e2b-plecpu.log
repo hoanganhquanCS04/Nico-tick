@@ -1,0 +1,31 @@
+[gemma4-e2b-plecpu] google/gemma-4-E2B-it@3e22461f | 76 prompt x seed [0, 1, 2] | còn 228 lượt
+  nạp xong 18.4s | VRAM card: trước 451 MB -> sau nạp 7045 MB | torch 1703 MB | đo bằng nvml
+   model.language_model.embed_tokens_per_layer: embedding -> CPU (bọc)
+   model.vision_tower: -> CPU
+   model.embed_vision: -> CPU
+   model.audio_tower: -> CPU
+   model.embed_audio: -> CPU
+  seed 0 F4-002  10/228 | JSON ok 90% | 26.98s 9.86 tok/s | VRAM 7081.2 MB | còn ~141 phút
+  seed 0 F1-006  20/228 | JSON ok 85% | 39.483s 10.03 tok/s | VRAM 7081.2 MB | còn ~136 phút
+  seed 0 F2-010  30/228 | JSON ok 83% | 39.931s 9.89 tok/s | VRAM 7081.2 MB | còn ~130 phút
+  seed 0 F1-009  40/228 | JSON ok 88% | 44.803s 9.91 tok/s | VRAM 7081.2 MB | còn ~124 phút
+  seed 0 F3-013  50/228 | JSON ok 90% | 38.821s 9.61 tok/s | VRAM 7081.2 MB | còn ~117 phút
+  seed 0 F1-014  60/228 | JSON ok 92% | 44.468s 10.16 tok/s | VRAM 7083.2 MB | còn ~110 phút
+  seed 0 F4-014  70/228 | JSON ok 91% | 27.285s 9.86 tok/s | VRAM 7083.2 MB | còn ~104 phút
+  seed 1 F4-001  80/228 | JSON ok 92% | 28.043s 9.91 tok/s | VRAM 7083.2 MB | còn ~98 phút
+  seed 1 F4-003  90/228 | JSON ok 92% | 26.605s 10.0 tok/s | VRAM 7083.2 MB | còn ~91 phút
+  seed 1 F2-008  100/228 | JSON ok 91% | 44.8s 9.84 tok/s | VRAM 7083.2 MB | còn ~84 phút
+  seed 1 F1-008  110/228 | JSON ok 92% | 49.005s 10.04 tok/s | VRAM 7083.2 MB | còn ~78 phút
+  seed 1 F1-010  120/228 | JSON ok 92% | 46.693s 10.04 tok/s | VRAM 7083.2 MB | còn ~71 phút
+  seed 1 F2-018  130/228 | JSON ok 92% | 40.023s 10.07 tok/s | VRAM 7083.2 MB | còn ~65 phút
+  seed 1 F4-013  140/228 | JSON ok 92% | 26.941s 9.84 tok/s | VRAM 7083.2 MB | còn ~58 phút
+  seed 1 F1-017  150/228 | JSON ok 93% | 41.691s 10.03 tok/s | VRAM 7083.2 MB | còn ~52 phút
+  seed 2 F1-003  160/228 | JSON ok 92% | 39.963s 10.01 tok/s | VRAM 7083.2 MB | còn ~45 phút
+  seed 2 F2-006  170/228 | JSON ok 92% | 51.933s 9.86 tok/s | VRAM 7083.2 MB | còn ~38 phút
+  seed 2 F3-007  180/228 | JSON ok 91% | 37.552s 9.75 tok/s | VRAM 7083.2 MB | còn ~32 phút
+  seed 2 F2-013  190/228 | JSON ok 92% | 45.499s 9.93 tok/s | VRAM 7083.2 MB | còn ~25 phút
+  seed 2 F1-011  200/228 | JSON ok 92% | 44.813s 9.86 tok/s | VRAM 7083.2 MB | còn ~18 phút
+  seed 2 F3-015  210/228 | JSON ok 92% | 39.027s 9.92 tok/s | VRAM 7083.2 MB | còn ~12 phút
+  seed 2 F2-023  220/228 | JSON ok 92% | 43.08s 9.8 tok/s | VRAM 7083.2 MB | còn ~5 phút
+  seed 2 F4-015  228/228 | JSON ok 92% | 24.569s 9.97 tok/s | VRAM 7083.2 MB | còn ~0 phút
+[gemma4-e2b-plecpu] xong 228 lượt trong 150.2 phút -> bench/raw

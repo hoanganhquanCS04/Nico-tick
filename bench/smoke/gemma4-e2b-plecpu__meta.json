@@ -1,0 +1,41 @@
+{
+ "key": "gemma4-e2b-plecpu",
+ "model_id": "google/gemma-4-E2B-it",
+ "revision": "3e22461f65e89153144f8adb70e3b8c2cc9845a7",
+ "quant": "nf4",
+ "compute_dtype": "float16",
+ "generation": {
+  "do_sample": true,
+  "temperature": 0.2,
+  "top_p": 0.9,
+  "top_k": 0,
+  "repetition_penalty": 1.0,
+  "max_new_tokens": 512
+ },
+ "chat_kwargs": {
+  "enable_thinking": false
+ },
+ "cpu_modules": [
+  "model.language_model.embed_tokens_per_layer: embedding -> CPU (bọc)",
+  "model.vision_tower: -> CPU",
+  "model.embed_vision: -> CPU",
+  "model.audio_tower: -> CPU",
+  "model.embed_audio: -> CPU"
+ ],
+ "load_s": 56.3,
+ "vram_idle_mb": 451.1875,
+ "vram_after_load_mb": 7045.1875,
+ "numel_total": 3945463328,
+ "numel_on_gpu": 1350792448,
+ "cuda_allocated_mb": 1710.9,
+ "gpu": "Tesla T4",
+ "vram_backend": "nvml",
+ "versions": {
+  "python": "3.12.13",
+  "torch": "2.10.0+cu128",
+  "cuda": "12.8",
+  "transformers": "5.5.0",
+  "bitsandbytes": "0.50.2"
+ },
+ "started": "2026-09-24T15:37:39+00:00"
+}

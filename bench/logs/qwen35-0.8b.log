@@ -1,0 +1,28 @@
+[qwen35-0.8b] Qwen/Qwen3.5-0.8B@2fc06364 | 76 prompt x seed [0, 1, 2] | còn 228 lượt
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+The fast path is not available because one of the required library is not installed. Falling back to torch implementation. To install follow https://github.com/fla-org/flash-linear-attention#installation and https://github.com/Dao-AILab/causal-conv1d
+  nạp xong 8.9s | VRAM card: trước 451 MB -> sau nạp 1349 MB | torch 738 MB | đo bằng nvml
+  seed 0 F4-002  10/228 | JSON ok 60% | 18.428s 13.95 tok/s | VRAM 2799.2 MB | còn ~104 phút
+  seed 0 F1-006  20/228 | JSON ok 50% | 29.425s 14.24 tok/s | VRAM 2799.2 MB | còn ~100 phút
+  seed 0 F2-010  30/228 | JSON ok 53% | 36.403s 14.06 tok/s | VRAM 3831.2 MB | còn ~94 phút
+  seed 0 F1-009  40/228 | JSON ok 52% | 26.281s 14.15 tok/s | VRAM 3833.2 MB | còn ~88 phút
+  seed 0 F3-013  50/228 | JSON ok 54% | 22.785s 14.0 tok/s | VRAM 3833.2 MB | còn ~82 phút
+  seed 0 F1-014  60/228 | JSON ok 53% | 30.653s 14.06 tok/s | VRAM 3833.2 MB | còn ~78 phút
+  seed 0 F4-014  70/228 | JSON ok 54% | 21.28s 14.05 tok/s | VRAM 3833.2 MB | còn ~73 phút
+  seed 1 F4-001  80/228 | JSON ok 55% | 25.166s 13.99 tok/s | VRAM 4505.2 MB | còn ~69 phút
+  seed 1 F4-003  90/228 | JSON ok 54% | 20.884s 14.08 tok/s | VRAM 4505.2 MB | còn ~65 phút
+  seed 1 F2-008  100/228 | JSON ok 53% | 36.569s 14.0 tok/s | VRAM 4505.2 MB | còn ~60 phút
+  seed 1 F1-008  110/228 | JSON ok 55% | 33.203s 14.13 tok/s | VRAM 4505.2 MB | còn ~55 phút
+  seed 1 F1-010  120/228 | JSON ok 54% | 32.746s 14.14 tok/s | VRAM 4505.2 MB | còn ~51 phút
+  seed 1 F2-018  130/228 | JSON ok 55% | 36.879s 13.88 tok/s | VRAM 4505.2 MB | còn ~46 phút
+  seed 1 F4-013  140/228 | JSON ok 55% | 18.291s 13.83 tok/s | VRAM 4505.2 MB | còn ~41 phút
+  seed 1 F1-017  150/228 | JSON ok 55% | 36.402s 14.07 tok/s | VRAM 4505.2 MB | còn ~37 phút
+  seed 2 F1-003  160/228 | JSON ok 56% | 36.024s 13.99 tok/s | VRAM 4505.2 MB | còn ~32 phút
+  seed 2 F2-006  170/228 | JSON ok 56% | 36.701s 13.95 tok/s | VRAM 4505.2 MB | còn ~27 phút
+  seed 2 F3-007  180/228 | JSON ok 56% | 21.784s 13.95 tok/s | VRAM 4505.2 MB | còn ~23 phút
+  seed 2 F2-013  190/228 | JSON ok 56% | 28.982s 14.46 tok/s | VRAM 4505.2 MB | còn ~18 phút
+  seed 2 F1-011  200/228 | JSON ok 56% | 35.338s 14.49 tok/s | VRAM 4505.2 MB | còn ~13 phút
+  seed 2 F3-015  210/228 | JSON ok 56% | 27.697s 14.33 tok/s | VRAM 4505.2 MB | còn ~8 phút
+  seed 2 F2-023  220/228 | JSON ok 56% | 34.739s 14.42 tok/s | VRAM 4505.2 MB | còn ~4 phút
+  seed 2 F4-015  228/228 | JSON ok 56% | 19.265s 14.33 tok/s | VRAM 4505.2 MB | còn ~0 phút
+[qwen35-0.8b] xong 228 lượt trong 106.5 phút -> bench/raw

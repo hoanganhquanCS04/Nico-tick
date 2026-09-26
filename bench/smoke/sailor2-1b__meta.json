@@ -1,0 +1,35 @@
+{
+ "key": "sailor2-1b",
+ "model_id": "sail/Sailor2-1B-Chat",
+ "revision": "51b48ecd7c0629e4c79dc927a0445e6b671d8692",
+ "quant": "nf4",
+ "compute_dtype": "float16",
+ "generation": {
+  "do_sample": true,
+  "temperature": 0.2,
+  "top_p": 0.9,
+  "top_k": 0,
+  "repetition_penalty": 1.0,
+  "max_new_tokens": 512
+ },
+ "chat_kwargs": {
+  "enable_thinking": false
+ },
+ "cpu_modules": [],
+ "load_s": 11.2,
+ "vram_idle_mb": 451.1875,
+ "vram_after_load_mb": 1487.1875,
+ "numel_total": 630238080,
+ "numel_on_gpu": 630238080,
+ "cuda_allocated_mb": 881.7,
+ "gpu": "Tesla T4",
+ "vram_backend": "nvml",
+ "versions": {
+  "python": "3.12.13",
+  "torch": "2.10.0+cu128",
+  "cuda": "12.8",
+  "transformers": "5.5.0",
+  "bitsandbytes": "0.50.2"
+ },
+ "started": "2026-09-24T15:34:12+00:00"
+}

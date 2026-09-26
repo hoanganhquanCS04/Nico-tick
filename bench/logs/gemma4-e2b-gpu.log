@@ -1,0 +1,4 @@
+[gemma4-e2b-gpu] google/gemma-4-E2B-it@3e22461f | 10 prompt x seed [0] | còn 10 lượt
+  nạp xong 11.8s | VRAM card: trước 451 MB -> sau nạp 7109 MB | torch 6441 MB | đo bằng nvml
+  seed 0 F4-002  10/10 | JSON ok 90% | 26.301s 10.11 tok/s | VRAM 8761.2 MB | còn ~0 phút
+[gemma4-e2b-gpu] xong 10 lượt trong 6.3 phút -> bench/raw

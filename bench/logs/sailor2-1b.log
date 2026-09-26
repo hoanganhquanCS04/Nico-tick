@@ -1,0 +1,26 @@
+[sailor2-1b] sail/Sailor2-1B-Chat@51b48ecd | 76 prompt x seed [0, 1, 2] | còn 228 lượt
+  nạp xong 9.7s | VRAM card: trước 451 MB -> sau nạp 1487 MB | torch 873 MB | đo bằng nvml
+  seed 0 F4-002  10/228 | JSON ok 40% | 47.64s 10.75 tok/s | VRAM 4013.2 MB | còn ~141 phút
+  seed 0 F1-006  20/228 | JSON ok 35% | 47.684s 10.74 tok/s | VRAM 4013.2 MB | còn ~143 phút
+  seed 0 F2-010  30/228 | JSON ok 30% | 27.432s 10.39 tok/s | VRAM 5985.2 MB | còn ~135 phút
+  seed 0 F1-009  40/228 | JSON ok 25% | 47.316s 10.82 tok/s | VRAM 5985.2 MB | còn ~132 phút
+  seed 0 F3-013  50/228 | JSON ok 30% | 45.11s 10.66 tok/s | VRAM 5985.2 MB | còn ~124 phút
+  seed 0 F1-014  60/228 | JSON ok 30% | 47.912s 10.69 tok/s | VRAM 5985.2 MB | còn ~118 phút
+  seed 0 F4-014  70/228 | JSON ok 29% | 39.94s 10.62 tok/s | VRAM 5985.2 MB | còn ~112 phút
+  seed 1 F4-001  80/228 | JSON ok 30% | 28.789s 10.52 tok/s | VRAM 7257.2 MB | còn ~106 phút
+  seed 1 F4-003  90/228 | JSON ok 30% | 34.583s 10.81 tok/s | VRAM 7257.2 MB | còn ~99 phút
+  seed 1 F2-008  100/228 | JSON ok 32% | 13.061s 9.49 tok/s | VRAM 7257.2 MB | còn ~91 phút
+  seed 1 F1-008  110/228 | JSON ok 32% | 47.72s 10.73 tok/s | VRAM 7257.2 MB | còn ~84 phút
+  seed 1 F1-010  120/228 | JSON ok 32% | 47.762s 10.72 tok/s | VRAM 7257.2 MB | còn ~77 phút
+  seed 1 F2-018  130/228 | JSON ok 33% | 46.129s 10.69 tok/s | VRAM 7257.2 MB | còn ~69 phút
+  seed 1 F4-013  140/228 | JSON ok 32% | 39.308s 10.71 tok/s | VRAM 7257.2 MB | còn ~63 phút
+  seed 1 F1-017  150/228 | JSON ok 32% | 48.468s 10.56 tok/s | VRAM 7257.2 MB | còn ~56 phút
+  seed 2 F1-003  160/228 | JSON ok 34% | 47.802s 10.71 tok/s | VRAM 7257.2 MB | còn ~49 phút
+  seed 2 F2-006  170/228 | JSON ok 32% | 48.586s 10.54 tok/s | VRAM 7257.2 MB | còn ~42 phút
+  seed 2 F3-007  180/228 | JSON ok 31% | 49.637s 10.31 tok/s | VRAM 7257.2 MB | còn ~34 phút
+  seed 2 F2-013  190/228 | JSON ok 31% | 12.743s 10.52 tok/s | VRAM 7257.2 MB | còn ~27 phút
+  seed 2 F1-011  200/228 | JSON ok 30% | 47.617s 10.75 tok/s | VRAM 7257.2 MB | còn ~20 phút
+  seed 2 F3-015  210/228 | JSON ok 30% | 27.583s 10.26 tok/s | VRAM 7257.2 MB | còn ~13 phút
+  seed 2 F2-023  220/228 | JSON ok 31% | 49.087s 10.43 tok/s | VRAM 7257.2 MB | còn ~6 phút
+  seed 2 F4-015  228/228 | JSON ok 31% | 47.38s 10.81 tok/s | VRAM 7257.2 MB | còn ~0 phút
+[sailor2-1b] xong 228 lượt trong 163.2 phút -> bench/raw

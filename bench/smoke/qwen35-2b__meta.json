@@ -1,0 +1,35 @@
+{
+ "key": "qwen35-2b",
+ "model_id": "Qwen/Qwen3.5-2B",
+ "revision": "15852e8c16360a2fea060d615a32b45270f8a8fc",
+ "quant": "nf4",
+ "compute_dtype": "float16",
+ "generation": {
+  "do_sample": true,
+  "temperature": 0.2,
+  "top_p": 0.9,
+  "top_k": 0,
+  "repetition_penalty": 1.0,
+  "max_new_tokens": 512
+ },
+ "chat_kwargs": {
+  "enable_thinking": false
+ },
+ "cpu_modules": [],
+ "load_s": 30.9,
+ "vram_idle_mb": 451.1875,
+ "vram_after_load_mb": 2245.1875,
+ "numel_total": 1195466560,
+ "numel_on_gpu": 1195466560,
+ "cuda_allocated_mb": 1654.9,
+ "gpu": "Tesla T4",
+ "vram_backend": "nvml",
+ "versions": {
+  "python": "3.12.13",
+  "torch": "2.10.0+cu128",
+  "cuda": "12.8",
+  "transformers": "5.5.0",
+  "bitsandbytes": "0.50.2"
+ },
+ "started": "2026-09-24T15:36:03+00:00"
+}
